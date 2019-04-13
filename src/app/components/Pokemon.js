@@ -9,6 +9,7 @@ export default ({language, name, data, abilities, loadPokemon, loadAbility}) =>
     <h2> {data.names && utils.titleCase(data.names.find(name => name.language.name === language).name)} </h2>
 
     <img src={data.sprites && data.sprites.front_default}></img>
+    <img src={data.sprites && data.sprites.front_shiny}></img>
 
     <div>
       <h3> Abilities </h3>
