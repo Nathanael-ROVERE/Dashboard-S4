@@ -4,20 +4,15 @@ import Navigation from '../Navigation'
 import Pokemon from '../Pokemon'
 
 export default (state, actions) =>
-  <app oncreate={() => actions.getLanguages()}>
+  <app>
     <p>{console.log(state)}</p>
-    <Header
-      languages={state.languages}
-      setLanguage={(language) => actions.set({entry: 'language', data: language})}>
-    </Header>
+    <Header></Header>
 
     <Navigation></Navigation>
-    <Pokemon
-      language={state.language}
-      name='16'
-      data={state.pokemon}
-      abilities={state.abilities}
-      loadPokemon={(name) => actions.getPokemon(name)}
-      loadAbility={(name) => actions.getAbility(name)}>
-    </Pokemon>
+
+    <div oncreate={() => actions.getPokemon({id: '6', location: 'pokemon'})}>
+      <Pokemon
+        data={state.pokemon}>
+      </Pokemon>
+    </div>
   </app>
