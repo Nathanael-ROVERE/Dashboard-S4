@@ -2,7 +2,11 @@ import { h } from 'hyperapp'
 
 export default () =>
   <header>
-    <h1> Pokedash </h1>
-    <h2> Your Pokemon companion </h2>
-    <h3> Version 1.0 </h3>
+    <div id="title"><img src="/img/POKEDASH.png"/></div>
+    <div id="menuSizeKeeper">
+      <div id="menu">
+        <p> Pokedex </p>
+        <p> Equipe </p>
+      </div>
+    </div>
   </header>

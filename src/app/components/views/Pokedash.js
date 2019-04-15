@@ -5,7 +5,7 @@ import Pokemon from '../Pokemon'
 
 export default (state, actions) =>
   <app>
-    <p>{console.log(state)}</p>
+    <p id="consolelog"><h3>Log state</h3>{console.log(state)}</p>
     <Header></Header>
 
     <Navigation></Navigation>
