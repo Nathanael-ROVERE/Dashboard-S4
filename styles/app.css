@@ -8,6 +8,12 @@
   src: url("/fonts/FutuLt.ttf") format("ttf");
 }
 
+/*COLORS*/
+:root {
+  --title-background-color: #FF6666;
+  --menu-background-color: #FBF6D0;
+}
+
 #consolelog{
   position: fixed;
   bottom:0;
@@ -34,11 +40,11 @@ header #title img{
 
 
 header #title{
-  background-color: #FF6666;
+  background-color: var(--title-background-color);
   text-align: center;
   padding: 50px 0;
   margin: 0;
-  width: 100%
+  width: 100%;
 }
 
 header #menu{
@@ -51,10 +57,10 @@ header #menu{
 
 header #menu > *{
   width: 100%;
-  background-color: #FBF6D0;
   margin: 0;
   padding: 15px 0;
   transition: 0.25s; -webkit-transition: 0.25s;
+  background-color: var(--menu-background-color);
   color:#C23D02;
 }
 
