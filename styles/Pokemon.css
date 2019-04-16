@@ -13,3 +13,7 @@ pokemon {
   box-shadow: 0 4px 6px #7c7c7c;
   text-align: center;
 }
+
+#stats {
+  max-width: 50vw;
+}
