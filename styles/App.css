@@ -8,16 +8,6 @@
   src: url("/fonts/FutuLt.ttf") format("ttf");
 }
 
-#consolelog{
-  position: fixed;
-  bottom:0;
-  left:0;
-  right: 0;
-  height: 100px;
-  background-color: #eee;
-  margin: 0
-}
-
 html {
   scroll-behavior: smooth;
 }
