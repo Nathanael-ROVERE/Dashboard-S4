@@ -1,7 +1,6 @@
 export default {
   pokedex: [],
   pokemon: {
-    abilities: []
   },
   team: {
     1: {

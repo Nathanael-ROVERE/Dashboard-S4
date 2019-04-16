@@ -10,7 +10,7 @@ export default (state, actions) =>
 
     <Navigation></Navigation>
 
-    <div oncreate={() => actions.getPokemon({id: '6', location: 'pokemon'})}>
+    <div oncreate={() => actions.getPokemon({id: '101', location: 'pokemon'})}>
       <Pokemon
         data={state.pokemon}>
       </Pokemon>
