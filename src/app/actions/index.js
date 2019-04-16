@@ -31,22 +31,12 @@ export const utils = {
           backgroundColor: utils.flip(data).map(value => utils.color(value)),
           borderWidth: 1
         }]
-      },
+      },  
       options: {
         tooltips: {
           enabled: false
         },
         events: false,
-        animation: {
-          duration: 1,
-          onComplete: () => {
-            chart.datasets.forEach(function (dataset) {
-              dataset.bars.forEach(function (bar) {
-                ctx.fillText(bar.value, bar.x, bar.y - 5)
-              })
-            })
-          }
-        },
         responsive: true,
         legend: {
           position: 'bottom'
