@@ -32,7 +32,7 @@ header #title{
 }
 
 header #menu{
-  font-family: "Futura-Lt-BT";
+  font-family: 'Open Sans Condensed', sans-serif;
   display: flex;
   font-size: 18px;
   text-align: center;

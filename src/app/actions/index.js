@@ -31,7 +31,7 @@ export const utils = {
           backgroundColor: utils.flip(data).map(value => utils.color(value)),
           borderWidth: 1
         }]
-      },  
+      },
       options: {
         tooltips: {
           enabled: false

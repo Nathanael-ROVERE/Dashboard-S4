@@ -1,16 +1,14 @@
 import { h } from 'hyperapp'
 import { utils } from '../actions/index'
-import { strengths, weaknesses } from '../../../assets/types'
+import { strengths, weaknesses, colors } from '../../../assets/types'
 
 export default ({data}) => {
   if (data) {
     return (
       <pokemon>
-        <strengths class='data-box'>
+        <strengths class='data-box types'>
           <h2> Strengths </h2>
-          {
-            data && data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <p> {strength} </p>)
-          }
+          {data && data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength]}> {strength.toUpperCase()} </type>)}
         </strengths>
 
         <identity class='data-box'>
@@ -21,21 +19,15 @@ export default ({data}) => {
             <img src={data && data.sprites && data.sprites.front_shiny}></img>
           </sprites>
 
-          <types>
+          <types class='types'>
             <h3> Types </h3>
-            {data && data.types && data.types.map((entry) =>
-              <type>
-                <p>{utils.titleCase(entry.type.name)}</p>
-              </type>
-            )}
+            {data && data.types && data.types.map((entry) => <type style={'background-color:' + colors[entry.type.name]}> {entry.type.name.toUpperCase()}</type>)}
           </types>
         </identity>
 
-        <weaknesses class='data-box'>
+        <weaknesses class='data-box types'>
           <h2> Weaknesses </h2>
-          {
-            data && data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <p> {weakness} </p>)
-          }
+          {data && data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <type style={'background-color:' + colors[weakness]}> {weakness.toUpperCase()} </type>)}
         </weaknesses>
 
         <div class='data-box'>

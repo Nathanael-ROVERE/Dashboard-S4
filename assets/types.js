@@ -19,6 +19,28 @@ export const types = [
   'fairy'
 ]
 
+export const colors = {
+  bug: '#8d9b11',
+  dark: '#3c2d23',
+  dragon: '#775ee1',
+  electric: '#fcbf1a',
+  fairy: '#f8c3f8',
+  fighting: '#86371f',
+  fire: '#f0430d',
+  flying: '#9daef7',
+  ghost: '#6262b5',
+  grass: '#68bb2c',
+  ground: '#d8b862',
+  ice: '#a9e9fe',
+  normal: '#d0cbc4',
+  poison: '#924593',
+  psychic: '#ec4780',
+  rock: '#bca358',
+  steel: '#b1b1c0',
+  water: '#3193f6'
+
+}
+
 export const effectivenesses = {
   bug: {'normal': 1, 'fire': 2, 'water': 1, 'electric': 1, 'grass': 0.5, 'ice': 1, 'fighting': 0.5, 'poison': 1, 'ground': 0.5, 'flying': 2, 'psychic': 1, 'bug': 1, 'rock': 2, 'ghost': 1, 'dragon': 1, 'dark': 1, 'steel': 1, 'fairy': 1},
   dark: {'normal': 1, 'fire': 1, 'water': 1, 'electric': 1, 'grass': 1, 'ice': 1, 'fighting': 2, 'poison': 1, 'ground': 1, 'flying': 1, 'psychic': 0, 'bug': 2, 'rock': 1, 'ghost': 0.5, 'dragon': 1, 'dark': 0.5, 'steel': 1, 'fairy': 2},
