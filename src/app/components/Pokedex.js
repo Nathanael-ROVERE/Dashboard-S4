@@ -1,10 +1,10 @@
 import { h } from 'hyperapp'
 import PokemonPreview from './PokemonPreview'
 
-export default ({data}) =>
+export default () => (state) =>
   <pokedex>
     {
-      data && Object.entries(data).map(pokemon =>
+      state.pokedex && Object.entries(state.pokedex).map(pokemon =>
         <PokemonPreview
           data={pokemon[1]}>
         </PokemonPreview>

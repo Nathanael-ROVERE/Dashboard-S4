@@ -68,24 +68,26 @@ export const utils = {
 
 export const actions = {
   location: location.actions,
+
   getState: () => (state) => state,
+
   getPokedex: () => (state, actions) => {
-    get(POKEMON_PATH + '?limit=10').then(response => {
+    get(POKEMON_PATH + '?limit=802').then(response => {
       response.results.map((result, index) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
-          get(POKEMON_SPECIES_PATH + result.name).then(species =>
-            actions.setToPokedex({
-              id: index,
-              data: {
-                ...pokemon,
-                ...species
-              }
-            })
-          )
+          actions.setToPokedex({
+            id: index,
+            data: {
+              id: pokemon.id,
+              name: pokemon.name,
+              sprites: pokemon.sprites
+            }
+          })
         )
       )
     })
   },
+
   getPokemon: ({id, location}) => (state, actions) => {
     get(POKEMON_PATH + id.toLowerCase()).then(pokemon => {
       get(POKEMON_SPECIES_PATH + id.toLowerCase()).then(species => {

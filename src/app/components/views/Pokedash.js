@@ -10,8 +10,9 @@ export default (state, actions) =>
     <Header></Header>
     <Switch>
       <Route path='/' render={() => <div> Welcome to pokedash </div>}/>
-      <Route path="/pokedex" render={() => Pokedex({data: state.pokedex})}/>
-      <Route path="/pokemon" render={() => actions.getPokemon({id: '6', location: 'pokemon'} && Pokemon({data: state.pokemon}))}/>
+      <Route path="/pokedex" render={Pokedex}/>
+      <Route path="/pokemon/:id" render={Pokemon}/>
       <Route render={() => <div>PAGE NOT FOUND</div>}/>
+      {console.log(state)}
     </Switch>
   </app>
