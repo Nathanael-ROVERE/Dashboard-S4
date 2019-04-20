@@ -1,12 +1,17 @@
 import { h } from 'hyperapp'
+import { Link } from '@hyperapp/router'
 
 export default () =>
   <header>
-    <div id="title"><img src="/img/POKEDASH.png"/></div>
+    <div id="title">
+      <Link to='/'>
+        <img src="/img/POKEDASH.png"/>
+      </Link>
+    </div>
     <div id="menuSizeKeeper">
       <div id="menu">
-        <p> Pokedex </p>
-        <p> Equipe </p>
+        <Link to='/pokedex'> Pokedex </Link>
+        <Link to='/team'> Equipe </Link>
       </div>
     </div>
   </header>

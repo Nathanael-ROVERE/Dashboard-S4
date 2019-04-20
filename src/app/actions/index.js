@@ -1,3 +1,4 @@
+import { location } from '@hyperapp/router'
 import Chart from 'chart.js'
 
 const API_URL = 'https://pokeapi.co/api/v2/'
@@ -66,10 +67,10 @@ export const utils = {
 }
 
 export const actions = {
+  location: location.actions,
   getState: () => (state) => state,
   getPokedex: () => (state, actions) => {
     get(POKEMON_PATH + '?limit=10').then(response => {
-      console.log(response.results)
       response.results.map((result, index) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
           get(POKEMON_SPECIES_PATH + result.name).then(species =>
@@ -99,8 +100,6 @@ export const actions = {
     })
   },
   set: ({entry, data}) => (state) => {
-    console.log('data in set', data)
-    console.log('entry in set', entry)
     return ({
       ...state,
       [entry]: data

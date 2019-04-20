@@ -1,5 +1,8 @@
+import { location } from '@hyperapp/router'
+
 export default {
-  pokedex: [],
+  location: location.state,
+  pokedex: {},
   pokemon: {
   },
   team: {
@@ -21,6 +24,5 @@ export default {
     6: {
       abilitiesData: []
     }
-  },
-  tmp: {}
+  }
 }

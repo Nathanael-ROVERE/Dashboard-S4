@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@hyperapp/logger": "^0.4.1",
+    "@hyperapp/router": "^0.7.1",
     "chart.js": "^2.8.0",
     "hyperapp": "^1.1.2",
     "jquery": "^3.4.0",

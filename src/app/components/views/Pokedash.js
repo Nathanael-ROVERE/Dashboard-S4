@@ -1,20 +1,17 @@
 import { h } from 'hyperapp'
+import { Route, Switch } from '@hyperapp/router'
+
 import Header from '../Header'
 import Pokemon from '../Pokemon'
+import Pokedex from '../Pokedex'
 
 export default (state, actions) =>
-  <app>
+  <app oncreate={() => actions.getPokedex()}>
     <Header></Header>
-
-    <div oncreate={() => actions.getPokemon({id: '6', location: 'pokemon'})}>
-      <Pokemon
-        data={state.pokemon}>
-      </Pokemon>
-    </div>
-
-    <div oncreate={() => actions.getPokedex()}>{Object.entries(state.pokedex).map(pokemon =>
-      <Pokemon
-        data={pokemon[1]}>
-      </Pokemon>
-    )}</div>
+    <Switch>
+      <Route path='/' render={() => <div> Welcome to pokedash </div>}/>
+      <Route path="/pokedex" render={() => Pokedex({data: state.pokedex})}/>
+      <Route path="/pokemon" render={() => actions.getPokemon({id: '6', location: 'pokemon'} && Pokemon({data: state.pokemon}))}/>
+      <Route render={() => <div>PAGE NOT FOUND</div>}/>
+    </Switch>
   </app>

@@ -21,7 +21,13 @@ export default ({data}) => {
 
           <types class='types'>
             <h3> Types </h3>
-            {data && data.types && data.types.map((entry) => <type style={'background-color:' + colors[entry.type.name]}> {entry.type.name.toUpperCase()}</type>)}
+            {data && data.types && data.types.map((entry) =>
+              <type style={'background-color:' + colors[entry.type.name]}>
+                <p>
+                  {entry.type.name.toUpperCase()}
+                </p>
+              </type>
+            )}
           </types>
         </identity>
 
@@ -58,9 +64,9 @@ export default ({data}) => {
         </div>
 
         { () => data && data.stats && (
-          <canvas class='data-box' id='stats' oncreate={() => utils.chart(
+          <canvas class='data-box' id={'stats' + data.name.toLowerCase()} oncreate={() => utils.chart(
             {
-              id: 'stats',
+              id: 'stats' + data.name.toLowerCase(),
               labels: data.stats.map(stats => stats.stat.name),
               data: data.stats.map(stats => stats.base_stat)
             }
