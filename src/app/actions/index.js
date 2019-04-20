@@ -15,11 +15,7 @@ export const utils = {
     const hue = ((value / 200) * 1.1 * 120).toString(10)
     return ['hsl(', hue, ',100%,50%)'].join('')
   },
-  chart: ({
-    id,
-    labels,
-    data
-  }) => {
+  chart: ({id, labels, data}) => {
     const ctx = document.getElementById(id)
     const chart = new Chart(ctx, {
       type: 'horizontalBar',
@@ -74,22 +70,22 @@ export const actions = {
   getPokedex: () => (state, actions) => {
     get(POKEMON_PATH + '?limit=10').then(response => {
       console.log(response.results)
-      response.results.map((pokemon, index) => {
-        actions.getPokemon({
-          id: pokemon.name,
-          location: 'pokemon'
-        })
-        actions.setPokedexPokemon({
-          source: state.pokemon,
-          index: index
-        })
-      })
+      response.results.map((result, index) =>
+        get(POKEMON_PATH + result.name).then(pokemon =>
+          get(POKEMON_SPECIES_PATH + result.name).then(species =>
+            actions.setToPokedex({
+              id: index,
+              data: {
+                ...pokemon,
+                ...species
+              }
+            })
+          )
+        )
+      )
     })
   },
-  getPokemon: ({
-    id,
-    location
-  }) => (state, actions) => {
+  getPokemon: ({id, location}) => (state, actions) => {
     get(POKEMON_PATH + id.toLowerCase()).then(pokemon => {
       get(POKEMON_SPECIES_PATH + id.toLowerCase()).then(species => {
         actions.set({
@@ -102,10 +98,7 @@ export const actions = {
       })
     })
   },
-  set: ({
-    entry,
-    data
-  }) => (state) => {
+  set: ({entry, data}) => (state) => {
     console.log('data in set', data)
     console.log('entry in set', entry)
     return ({
@@ -114,14 +107,12 @@ export const actions = {
     })
   },
 
-  setPokedexPokemon: (source, index) => (state) => {
-    console.log('index in pokepoke', index)
-    console.log('source in pokepoke', source)
-    return ({
-      ...state,
-      pokedex: Object.assign([...state.pokedex], {
-        [index]: source
-      })
+  setToPokedex: ({id, data}) => (state, actions) =>
+    actions.set({
+      entry: 'pokedex',
+      data: {
+        ...state.pokedex,
+        [id]: data
+      }
     })
-  }
 }

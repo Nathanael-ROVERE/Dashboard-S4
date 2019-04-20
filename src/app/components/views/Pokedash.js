@@ -11,4 +11,10 @@ export default (state, actions) =>
         data={state.pokemon}>
       </Pokemon>
     </div>
+
+    <div oncreate={() => actions.getPokedex()}>{Object.entries(state.pokedex).map(pokemon =>
+      <Pokemon
+        data={pokemon[1]}>
+      </Pokemon>
+    )}</div>
   </app>
