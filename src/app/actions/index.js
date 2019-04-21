@@ -5,6 +5,7 @@ const API_URL = 'https://pokeapi.co/api/v2/'
 
 const POKEMON_PATH = 'pokemon/'
 const POKEMON_SPECIES_PATH = 'pokemon-species/'
+const MOVE_PATH = 'move/'
 
 const getURL = (url) => fetch(url).then(response => response.json()).catch((error) => console.error('ERROR : ', error))
 const get = (query) => getURL(API_URL + query)
@@ -16,10 +17,10 @@ export const utils = {
     const hue = ((value / 200) * 1.1 * 120).toString(10)
     return ['hsl(', hue, ',100%,50%)'].join('')
   },
-  chart: ({id, labels, data}) => {
+  chart: ({id, labels, data, type}) => {
     const ctx = document.getElementById(id)
     const chart = new Chart(ctx, {
-      type: 'horizontalBar',
+      type: type,
       data: {
         labels: utils.flip(labels),
         datasets: [{
@@ -33,7 +34,7 @@ export const utils = {
         tooltips: {
           enabled: false
         },
-        events: false,
+        events: true,
         responsive: true,
         legend: {
           position: 'bottom'
@@ -91,21 +92,38 @@ export const actions = {
   getPokemon: ({id, location}) => (state, actions) => {
     get(POKEMON_PATH + id.toLowerCase()).then(pokemon => {
       get(POKEMON_SPECIES_PATH + id.toLowerCase()).then(species => {
-        actions.set({
-          entry: location,
-          data: {
-            id: pokemon.id,
-            name: pokemon.name,
-            types: pokemon.types,
-            sprites: pokemon.sprites,
-            experience: species.base_experience,
-            hapiness: species.base_hapiness,
-            capture: species.capture_rate,
-            gender: species.gender_rate,
-            abilities: pokemon.abilities,
-            stats: pokemon.stats
-          }
-        })
+        const moves = pokemon.moves.map(move => get(MOVE_PATH + move.move.name))
+        const movesLearnings = pokemon.moves.map(move => move.version_group_details.map(version => ({
+          name: version.version_group.name,
+          level: version.level_learned_at
+        })))
+
+        Promise.all(moves).then(result =>
+          actions.set({
+            entry: location,
+            data: {
+              id: pokemon.id,
+              name: pokemon.name,
+              types: pokemon.types,
+              sprites: pokemon.sprites,
+              experience: species.base_experience,
+              hapiness: species.base_hapiness,
+              capture: species.capture_rate,
+              gender: species.gender_rate,
+              abilities: pokemon.abilities,
+              stats: pokemon.stats,
+              moves: result.map((move, index) => ({
+                name: move.name,
+                accuracy: move.accuracy,
+                pp: move.pp,
+                priority: move.priority,
+                power: move.power,
+                type: move.type.name,
+                learning: movesLearnings[index]
+              }))
+            }
+          })
+        )
       })
     })
   },
@@ -122,6 +140,36 @@ export const actions = {
       data: {
         ...state.pokedex,
         [id]: data
+      }
+    })
+  },
+
+  addToTeam: ({data, slot}) => (state, actions) => {
+    actions.set({
+      entry: 'team',
+      data: {
+        ...state.team,
+        [slot]: data
+      }
+    })
+  },
+
+  removeFromTeam: ({slot}) => (state, actions) => {
+    actions.set({
+      entry: 'team',
+      data: {
+        ...state.team,
+        [slot]: {}
+      }
+    })
+  },
+
+  setTeamOverlay: ({display, toAdd}) => (state, actions) => {
+    actions.set({
+      entry: 'teamOverlay',
+      data: {
+        display: display,
+        toAdd: toAdd
       }
     })
   }

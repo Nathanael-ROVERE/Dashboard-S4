@@ -2,27 +2,19 @@ import { location } from '@hyperapp/router'
 
 export default {
   location: location.state,
+  teamOverlay: {
+    display: false,
+    toAdd: {}
+  },
   pokedex: {},
   pokemon: {
   },
   team: {
-    1: {
-      abilitiesData: []
-    },
-    2: {
-      abilitiesData: []
-    },
-    3: {
-      abilitiesData: []
-    },
-    4: {
-      abilitiesData: []
-    },
-    5: {
-      abilitiesData: []
-    },
-    6: {
-      abilitiesData: []
-    }
+    1: {},
+    2: {},
+    3: {},
+    4: {},
+    5: {},
+    6: {}
   }
 }

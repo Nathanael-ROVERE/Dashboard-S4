@@ -10,7 +10,7 @@ export default () =>
     </div>
     <div id="menuSizeKeeper">
       <div id="menu">
-        <Link to='/pokedex'> Pokedex </Link>
+        <Link to='/pokedex/1'> Pokedex </Link>
         <Link to='/team'> Equipe </Link>
       </div>
     </div>

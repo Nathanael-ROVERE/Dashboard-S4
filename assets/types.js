@@ -38,7 +38,6 @@ export const colors = {
   rock: '#bca358',
   steel: '#b1b1c0',
   water: '#3193f6'
-
 }
 
 export const effectivenesses = {

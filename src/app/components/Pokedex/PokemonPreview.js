@@ -1,5 +1,5 @@
 import { h } from 'hyperapp'
-import { utils } from '../actions/index'
+import { utils } from '../../actions/index'
 import { Link } from '@hyperapp/router'
 
 export default ({data}) => {

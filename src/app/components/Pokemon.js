@@ -1,13 +1,14 @@
-import {h} from 'hyperapp'
-import {utils} from '../actions/index'
-import {strengths, weaknesses, colors} from '../../../assets/types'
-import {Link} from '@hyperapp/router'
+import { h } from 'hyperapp'
+import { utils } from '../actions/index'
+import { strengths, weaknesses, colors } from '../../../assets/types'
+import { Link } from '@hyperapp/router'
 
-export default({match, data, getPokemon}) => <pokemon
+export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
   oncreate={() => getPokemon({id: match.params.id, location: 'pokemon'})}>
   <Link to={location.previous}>
     <button>Back</button>
   </Link>
+  <button onclick={() => setTeamOverlay({display: true, toAdd: data})}>+</button>
   <strengths class='data-box types'>
     <h2>
       Strengths
@@ -93,9 +94,34 @@ export default({match, data, getPokemon}) => <pokemon
         oncreate={() => utils.chart({
           id: 'stats' + data.id,
           labels: data.stats.map(stats => stats.stat.name),
-          data: data.stats.map(stats => stats.base_stat)
+          data: data.stats.map(stats => stats.base_stat),
+          type: 'horizontalBar'
         })}>
       </canvas>
     )}
+  </div>
+
+  <div>
+    <h3> Moves </h3>
+    {
+      data && data.moves && data.moves.map((entry) =>
+        <move>
+          <h2> {entry && entry.name && utils.titleCase(entry.name)} </h2>
+          <p> Power : {entry.power}</p>
+          <p> Accuracy : {entry.accuracy}</p>
+          <p> PP : {entry.pp}</p>
+          <p> Priority : {entry.priority}</p>
+          <p> Type : {entry.type}</p>
+          <p>Learned at : </p>
+          <ul>
+            {entry && entry.learning && entry.learning.map(version =>
+              <li>
+                {utils.titleCase(version.name)} : level {version.level}
+              </li>
+            )}
+          </ul>
+        </move>
+      )
+    }
   </div>
 </pokemon>
