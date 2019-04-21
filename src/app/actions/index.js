@@ -71,8 +71,8 @@ export const actions = {
 
   getState: () => (state) => state,
 
-  getPokedex: () => (state, actions) => {
-    get(POKEMON_PATH + '?limit=802').then(response => {
+  getPokedex: (page) => (state, actions) => {
+    get(POKEMON_PATH + '?limit=20&offset=' + (page - 1) * 20).then(response => {
       response.results.map((result, index) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
           actions.setToPokedex({
@@ -94,8 +94,16 @@ export const actions = {
         actions.set({
           entry: location,
           data: {
-            ...pokemon,
-            ...species
+            id: pokemon.id,
+            name: pokemon.name,
+            types: pokemon.types,
+            sprites: pokemon.sprites,
+            experience: species.base_experience,
+            hapiness: species.base_hapiness,
+            capture: species.capture_rate,
+            gender: species.gender_rate,
+            abilities: pokemon.abilities,
+            stats: pokemon.stats
           }
         })
       })
@@ -108,7 +116,7 @@ export const actions = {
     })
   },
 
-  setToPokedex: ({id, data}) => (state, actions) =>
+  setToPokedex: ({id, data}) => (state, actions) => {
     actions.set({
       entry: 'pokedex',
       data: {
@@ -116,4 +124,5 @@ export const actions = {
         [id]: data
       }
     })
+  }
 }
