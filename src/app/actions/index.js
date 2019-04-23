@@ -93,11 +93,6 @@ export const actions = {
     get(POKEMON_PATH + id.toLowerCase()).then(pokemon => {
       get(POKEMON_SPECIES_PATH + id.toLowerCase()).then(species => {
         const moves = pokemon.moves.map(move => get(MOVE_PATH + move.move.name))
-        const movesLearnings = pokemon.moves.map(move => move.version_group_details.map(version => ({
-          name: version.version_group.name,
-          level: version.level_learned_at
-        })))
-
         Promise.all(moves).then(result =>
           actions.set({
             entry: location,
@@ -112,14 +107,13 @@ export const actions = {
               gender: species.gender_rate,
               abilities: pokemon.abilities,
               stats: pokemon.stats,
-              moves: result.map((move, index) => ({
+              moves: result.map((move) => ({
                 name: move.name,
                 accuracy: move.accuracy,
                 pp: move.pp,
                 priority: move.priority,
                 power: move.power,
-                type: move.type.name,
-                learning: movesLearnings[index]
+                type: move.type.name
               }))
             }
           })

@@ -111,15 +111,7 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
           <p> Accuracy : {entry.accuracy}</p>
           <p> PP : {entry.pp}</p>
           <p> Priority : {entry.priority}</p>
-          <p> Type : {entry.type}</p>
-          <p>Learned at : </p>
-          <ul>
-            {entry && entry.learning && entry.learning.map(version =>
-              <li>
-                {utils.titleCase(version.name)} : level {version.level}
-              </li>
-            )}
-          </ul>
+          <type style={'background-color:' + colors[entry.type]}>{entry.type.toUpperCase()}</type>
         </move>
       )
     }
