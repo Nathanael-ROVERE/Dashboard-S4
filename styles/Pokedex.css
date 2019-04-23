@@ -1,4 +1,14 @@
-.change-page {
-    color: blue;
+.change_page {
+    cursor: pointer;
+    color: black;
     width: 30%;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 10px;
+    background-color: aqua;
+   
+}
+
+.next {
+    right: 0;
 }

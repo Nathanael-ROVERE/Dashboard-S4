@@ -20,24 +20,78 @@ export const types = [
 ]
 
 export const colors = {
-  bug: '#8d9b11',
-  dark: '#3c2d23',
-  dragon: '#775ee1',
-  electric: '#fcbf1a',
-  fairy: '#f8c3f8',
-  fighting: '#86371f',
-  fire: '#f0430d',
-  flying: '#9daef7',
-  ghost: '#6262b5',
-  grass: '#68bb2c',
-  ground: '#d8b862',
-  ice: '#a9e9fe',
-  normal: '#d0cbc4',
-  poison: '#924593',
-  psychic: '#ec4780',
-  rock: '#bca358',
-  steel: '#b1b1c0',
-  water: '#3193f6'
+  bug: {
+    light: '#e9efbf',
+    dark: '#a8b820'
+  },
+  dark: {
+    light: '#c0c0c0',
+    dark: '#5c4f46'
+  },
+  dragon: {
+    light: '#dcd2f3',
+    dark: '#7038f8'
+  },
+  electric: {
+    light: '#F9EFC5',
+    dark: '#F8D030'
+  },
+  fairy: {
+    light: '#F6D9E0',
+    dark: '#EE99AC'
+  },
+  fighting: {
+    light: '#E4C7C5',
+    dark: '#C0544E'
+  },
+  fire: {
+    light: '#F8DCC8',
+    dark: '#F08030'
+  },
+  flying: {
+    light: '#DFE8FF',
+    dark: '#90B1F0'
+  },
+  ghost: {
+    light: '#DAD4E2',
+    dark: '#705898'
+  },
+  grass: {
+    light: '#DDF6D0',
+    dark: '#78C850'
+  },
+  ground: {
+    light: '#EDE6D2',
+    dark: '#E0C068'
+  },
+  ice: {
+    light: '#DDF2F2',
+    dark: '#98D8D8'
+  },
+  normal: {
+    light: '#E4E4DC',
+    dark: '#AFAF95'
+  },
+  poison: {
+    light: '#E7C0E7',
+    dark: '#B650B6'
+  },
+  psychic: {
+    light: '#FFD1DF',
+    dark: '#F87099'
+  },
+  rock: {
+    light: '#DED7B9',
+    dark: '#B8A038'
+  },
+  steel: {
+    light: '#E9E9EC',
+    dark: '#B8B8D0'
+  },
+  water: {
+    light: '#D3DCF2',
+    dark: '#6890F0'
+  }
 }
 
 export const effectivenesses = {

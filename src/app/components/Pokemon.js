@@ -13,7 +13,7 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
     <h2>
       Strengths
     </h2>
-    {data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength]}>{strength.toUpperCase()}</type>)}
+    {data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength].dark}>{strength.toUpperCase()}</type>)}
   </strengths>
 
   <identity class='data-box'>
@@ -32,7 +32,7 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
       </h3>
       {data.types && data
         .types
-        .map((entry) => <type style={'background-color:' + colors[entry.type.name]}>
+        .map((entry) => <type style={'background-color:' + colors[entry.type.name].dark}>
           <span>
             {entry
               .type
@@ -47,7 +47,7 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
     <h2>
       Weaknesses
     </h2>
-    {data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <type style={'background-color:' + colors[weakness]}>{weakness.toUpperCase()}</type>)}
+    {data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <type style={'background-color:' + colors[weakness].dark}>{weakness.toUpperCase()}</type>)}
   </weaknesses>
 
   <div class='data-box'>
@@ -111,7 +111,7 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
           <p> Accuracy : {entry.accuracy}</p>
           <p> PP : {entry.pp}</p>
           <p> Priority : {entry.priority}</p>
-          <type style={'background-color:' + colors[entry.type]}>{entry.type.toUpperCase()}</type>
+          <type style={'background-color:' + colors[entry.type].dark}>{entry.type.toUpperCase()}</type>
         </move>
       )
     }
