@@ -15,10 +15,10 @@ export default ({match, data, getPokedex, setTeamOverlay}) =>
     }
 
     <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)}>
-      <button onclick={() => getPokedex(Math.max(1, parseInt(match.params.page, 10) - 1))}>Previous page</button>
+      <button class='change_page' onclick={() => getPokedex(Math.max(1, parseInt(match.params.page, 10) - 1))}>Previous page</button>
     </Link>
 
     <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)}>
-      <button onclick={() => getPokedex(Math.min(41, parseInt(match.params.page, 10) + 1))}>Next page</button>
+      <button class='change_page' onclick={() => getPokedex(Math.min(41, parseInt(match.params.page, 10) + 1))}>Next page</button>
     </Link>
   </pokedex>
