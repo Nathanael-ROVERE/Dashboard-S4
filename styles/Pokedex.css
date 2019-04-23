@@ -1,14 +1,20 @@
 .change_page {
     cursor: pointer;
     color: black;
-    width: 30%;
+    width: 200px;
     padding: 10px;
     font-size: 1em;
     border-radius: 10px;
-    background-color: aqua;
-   
+    background-color: whitesmoke;
+    position: center;
 }
 
 .next {
     right: 0;
+}
+
+#pokemon_name {
+    text-decoration: none;
+    color: black;
+    font-family: 'Quicksand', sans-serif;
 }

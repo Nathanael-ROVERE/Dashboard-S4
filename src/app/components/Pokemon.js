@@ -6,9 +6,9 @@ import { Link } from '@hyperapp/router'
 export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
   oncreate={() => getPokemon({id: match.params.id, location: 'pokemon'})}>
   <Link to={location.previous}>
-    <button>Back</button>
+    <img class='image back_image' src="/img/previous.png"/>
   </Link>
-  <button onclick={() => setTeamOverlay({display: true, toAdd: data})}>+</button>
+
   <strengths class='data-box types'>
     <h2>
       Strengths
@@ -22,8 +22,8 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
     </h2>
 
     <sprites>
-      <img src={data.sprites && data.sprites.front_default}></img>
-      <img src={data.sprites && data.sprites.front_shiny}></img>
+      <img class='pokemon_image' src={data.sprites && data.sprites.front_default}></img>
+      <img class='pokemon_image' src={data.sprites && data.sprites.front_shiny}></img>
     </sprites>
 
     <types class='types'>
@@ -41,6 +41,7 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
           </span>
         </type>)}
     </types>
+    <img class='image add_image' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
   </identity>
 
   <weaknesses class='data-box types'>
@@ -86,7 +87,7 @@ export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
     </abilities>
   </div>
 
-  <div class='chart-container' style="position: relative; width:50vw">
+  <div class='chart-container' style="position: relative; width:50vw;">
     {() => data.stats && (
       <canvas
         class='data-box'

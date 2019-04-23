@@ -46,6 +46,7 @@ header #menu > *{
   padding: 15px 0;
   transition: 0.25s; -webkit-transition: 0.25s;
   color:#C23D02;
+  text-decoration: none;
 }
 
 header #menu > .selected, header #menu > *:hover {
