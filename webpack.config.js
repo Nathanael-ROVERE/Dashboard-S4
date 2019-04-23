@@ -15,9 +15,9 @@ const plugins = [
 const config = {
   entry: [
     path.resolve(__dirname, './src/index.js'),
-    path.resolve(__dirname, './src/Pokedex.js'),
     path.resolve(__dirname, './styles/App.css'),
     path.resolve(__dirname, './styles/Pokemon.css'),
+    path.resolve(__dirname, './styles/Pokedex.css'),
     path.resolve(__dirname, './styles/TeamSelect.css'),
   ],
   devtool: 'source-map',
