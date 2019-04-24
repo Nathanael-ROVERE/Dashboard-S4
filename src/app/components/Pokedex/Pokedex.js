@@ -4,6 +4,9 @@ import { Link } from '@hyperapp/router'
 
 export default ({match, data, getPokedex, setTeamOverlay}) =>
   <pokedex oncreate={() => getPokedex(match.params.page)}>
+    
+    <oninput name='pokemon'></oninput>
+      
     {
       data && Object.entries(data).map(pokemon =>
         <PokemonPreview
