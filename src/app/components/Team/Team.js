@@ -2,7 +2,7 @@ import { h } from 'hyperapp'
 import TeamPokemonPreview from '../Team/SelectOverlay/TeamPokemonPreview'
 import { utils } from '../../actions/index'
 
-export default ({data, removeFromTeam, averageTeamStats}) =>
+export default ({data, removeFromTeam}) =>
   <team>
     {
       data && Object.entries(data).map((pokemon, index) =>
@@ -13,7 +13,6 @@ export default ({data, removeFromTeam, averageTeamStats}) =>
         </TeamPokemonPreview>
       )
     }
-    {console.log(averageTeamStats())}
     <div class='chart-container' style="position: relative; width:50vw">
       {() => data && (
         <canvas

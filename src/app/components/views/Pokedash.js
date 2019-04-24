@@ -22,7 +22,7 @@ export default (state, actions) =>
     }
     <Switch>
       <Route path='/' render={() => <Redirect from='/' to='pokedex/1'/>}/>
-      <Route parent path="/pokedex/:page" render={({match}) => Pokedex(
+      <Route parent path='/pokedex/:page' render={({match}) => Pokedex(
         {
           match: match,
           data: state.pokedex,
@@ -32,7 +32,7 @@ export default (state, actions) =>
           setTeamOverlay: actions.setTeamOverlay
         }
       )}/>
-      <Route path="/pokemon/:id" render={({match}) => Pokemon(
+      <Route path='/pokemon/:id' render={({match}) => Pokemon(
         {
           match: match,
           data: state.pokemon,
@@ -40,7 +40,7 @@ export default (state, actions) =>
           setTeamOverlay: actions.setTeamOverlay
         }
       )}/>
-      <Route render={() => Team({data: state.team, removeFromTeam: actions.removeFromTeam, averageTeamStats: actions.averageTeamStats})}></Route>
+      <Route path='/team' render={() => Team({data: state.team, removeFromTeam: actions.removeFromTeam})}></Route>
       <Route render={() => <div>PAGE NOT FOUND</div>}/>
     </Switch>
     {console.log(state)}
