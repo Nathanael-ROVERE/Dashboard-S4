@@ -7,7 +7,7 @@ export default ({data, toAdd, addToTeam, setTeamOverlay}) =>
     {console.log(data)}
     {
       data && Object.entries(data).map((pokemon, index) =>
-        <button onclick={() => {
+        <button class='clickable' onclick={() => {
           addToTeam({data: toAdd, slot: (index + 1)})
           setTimeout(() => {
             setTeamOverlay({display: false, toAdd: {}})

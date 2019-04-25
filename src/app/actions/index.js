@@ -1,11 +1,12 @@
-import { location } from '@hyperapp/router'
+import {
+  location
+} from '@hyperapp/router'
 import Chart from 'chart.js'
 
 const API_URL = 'https://pokeapi.co/api/v2/'
 
 const POKEMON_PATH = 'pokemon/'
 const POKEMON_SPECIES_PATH = 'pokemon-species/'
-const MOVE_PATH = 'move/'
 
 const getURL = (url) => fetch(url).then(response => response.json()).catch((error) => console.error('ERROR : ', error))
 const get = (query) => getURL(API_URL + query)
@@ -17,7 +18,12 @@ export const utils = {
     const hue = ((value / 200) * 1.1 * 120).toString(10)
     return ['hsl(', hue, ',100%,50%)'].join('')
   },
-  chart: ({id, labels, data, type}) => {
+  chart: ({
+    id,
+    labels,
+    data,
+    type
+  }) => {
     const ctx = document.getElementById(id)
     const chart = new Chart(ctx, {
       type: type,
@@ -72,8 +78,8 @@ export const actions = {
 
   getState: () => (state) => state,
 
-  getPokedex: (page) => (state, actions) => {
-    get(POKEMON_PATH + '?limit=20&offset=' + (page - 1) * 20).then(response => {
+  getPokedex: ({page, limit}) => (state, actions) => {
+    get(POKEMON_PATH + '?limit=' + limit + '&offset=' + (page - 1) * limit).then(response => {
       response.results.map((result, index) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
           actions.setToPokedex({
@@ -81,7 +87,8 @@ export const actions = {
             data: {
               id: pokemon.id,
               name: pokemon.name,
-              sprites: pokemon.sprites
+              sprites: pokemon.sprites,
+              types: pokemon.types
             }
           })
         )
@@ -89,46 +96,44 @@ export const actions = {
     })
   },
 
-  getPokemon: ({id, location}) => (state, actions) => {
+  getPokemon: ({
+    id,
+    location
+  }) => (state, actions) => {
     get(POKEMON_PATH + id.toLowerCase()).then(pokemon => {
       get(POKEMON_SPECIES_PATH + id.toLowerCase()).then(species => {
-        const moves = pokemon.moves.map(move => get(MOVE_PATH + move.move.name))
-        Promise.all(moves).then(result =>
-          actions.set({
-            entry: location,
-            data: {
-              id: pokemon.id,
-              name: pokemon.name,
-              types: pokemon.types,
-              sprites: pokemon.sprites,
-              experience: species.base_experience,
-              hapiness: species.base_hapiness,
-              capture: species.capture_rate,
-              gender: species.gender_rate,
-              abilities: pokemon.abilities,
-              stats: pokemon.stats,
-              moves: result.map((move) => ({
-                name: move.name,
-                accuracy: move.accuracy,
-                pp: move.pp,
-                priority: move.priority,
-                power: move.power,
-                type: move.type.name
-              }))
-            }
-          })
-        )
+        actions.set({
+          entry: location,
+          data: {
+            id: pokemon.id,
+            name: pokemon.name,
+            types: pokemon.types,
+            sprites: pokemon.sprites,
+            experience: species.base_experience,
+            hapiness: species.base_hapiness,
+            capture: species.capture_rate,
+            gender: species.gender_rate,
+            abilities: pokemon.abilities,
+            stats: pokemon.stats
+          }
+        })
       })
     })
   },
-  set: ({entry, data}) => (state) => {
+  set: ({
+    entry,
+    data
+  }) => (state) => {
     return ({
       ...state,
       [entry]: data
     })
   },
 
-  setToPokedex: ({id, data}) => (state, actions) => {
+  setToPokedex: ({
+    id,
+    data
+  }) => (state, actions) => {
     actions.set({
       entry: 'pokedex',
       data: {
@@ -138,7 +143,10 @@ export const actions = {
     })
   },
 
-  addToTeam: ({data, slot}) => (state, actions) => {
+  addToTeam: ({
+    data,
+    slot
+  }) => (state, actions) => {
     actions.set({
       entry: 'team',
       data: {
@@ -148,7 +156,9 @@ export const actions = {
     })
   },
 
-  removeFromTeam: ({slot}) => (state, actions) => {
+  removeFromTeam: ({
+    slot
+  }) => (state, actions) => {
     actions.set({
       entry: 'team',
       data: {
@@ -158,12 +168,33 @@ export const actions = {
     })
   },
 
-  setTeamOverlay: ({display, toAdd}) => (state, actions) => {
+  setTeamOverlay: ({
+    display,
+    toAdd
+  }) => (state, actions) => {
     actions.set({
       entry: 'teamOverlay',
       data: {
         display: display,
         toAdd: toAdd
+      }
+    })
+  },
+
+  filterPokedex: ({
+    name,
+    types
+  }) => (state, actions) => {
+    actions.getPokedex({
+      page: 1,
+      limit: 800
+    })
+    actions.set({
+      entry: 'pokedex',
+      data: {
+        ...Object.keys(state.pokedex)
+          .filter(key => state.pokedex[key].name.includes(name) && types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true))
+          .map(key => ({[key]: state.pokedex[key]}))
       }
     })
   }

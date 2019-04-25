@@ -29,7 +29,8 @@ export default (state, actions) =>
           getPokedex: actions.getPokedex,
           addToTeam: actions.addToTeam,
           teamOverlay: state.teamOverlay,
-          setTeamOverlay: actions.setTeamOverlay
+          setTeamOverlay: actions.setTeamOverlay,
+          filterPokedex: actions.filterPokedex
         }
       )}/>
       <Route path='/pokemon/:id' render={({match}) => Pokemon(
@@ -43,5 +44,4 @@ export default (state, actions) =>
       <Route path='/team' render={() => Team({data: state.team, removeFromTeam: actions.removeFromTeam})}></Route>
       <Route render={() => <div>PAGE NOT FOUND</div>}/>
     </Switch>
-    {console.log(state)}
   </app>

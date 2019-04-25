@@ -3,118 +3,98 @@ import { utils } from '../actions/index'
 import { strengths, weaknesses, colors } from '../../../assets/types'
 import { Link } from '@hyperapp/router'
 
-export default({match, data, getPokemon, setTeamOverlay}) => <pokemon
-  oncreate={() => getPokemon({id: match.params.id, location: 'pokemon'})}>
-  <Link to={location.previous}>
-    <img class='image back_image' src="/img/previous.png"/>
-  </Link>
+export default({match, data, getPokemon, setTeamOverlay}) =>
 
-  <strengths class='data-box types'>
-    <h2>
-      Strengths
-    </h2>
-    {data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength].dark}>{strength.toUpperCase()}</type>)}
-  </strengths>
+  <pokemon oncreate={() => getPokemon({id: match.params.id, location: 'pokemon'})}>
+    <Link to={location.previous}>
+      <img class='image back-image clickable' src="/img/previous.png"/>
+    </Link>
 
-  <identity class='data-box'>
-    <h2>
-      {data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
-    </h2>
+    <strengths class='data-box types'>
+      <h2>
+        Strengths
+      </h2>
+      {data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength].dark}>{strength.toUpperCase()}</type>)}
+    </strengths>
 
-    <sprites>
-      <img class='pokemon_image' src={data.sprites && data.sprites.front_default}></img>
-      <img class='pokemon_image' src={data.sprites && data.sprites.front_shiny}></img>
-    </sprites>
+    <identity class='data-box'>
+      <h2>
+        {data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
+      </h2>
 
-    <types class='types'>
-      <h3>
-        Types
-      </h3>
-      {data.types && data
-        .types
-        .map((entry) => <type style={'background-color:' + colors[entry.type.name].dark}>
-          <span>
-            {entry
-              .type
-              .name
-              .toUpperCase()}
-          </span>
-        </type>)}
-    </types>
-    <img class='image add_image' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
-  </identity>
+      <sprites>
+        <img class='pokemon-image' src={data.sprites && data.sprites.front_default}></img>
+        <img class='pokemon-image' src={data.sprites && data.sprites.front_shiny}></img>
+      </sprites>
 
-  <weaknesses class='data-box types'>
-    <h2>
-      Weaknesses
-    </h2>
-    {data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <type style={'background-color:' + colors[weakness].dark}>{weakness.toUpperCase()}</type>)}
-  </weaknesses>
+      <types class='types'>
+        <h3>
+          Types
+        </h3>
+        {data.types && data.types.map((entry) =>
+          <type style={'background-color:' + colors[entry.type.name].dark}>
+            {entry.type.name.toUpperCase()}
+          </type>
+        )}
+      </types>
+      <img class='image add-image clickable' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
+    </identity>
 
-  <div class='data-box'>
-    <experience>
-      <h3>
-        Base Experience : {data.experience}
-      </h3>
-    </experience>
+    <weaknesses class='data-box types'>
+      <h2>
+        Weaknesses
+      </h2>
+      {data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <type style={'background-color:' + colors[weakness].dark}>{weakness.toUpperCase()}</type>)}
+    </weaknesses>
 
-    <hapiness>
-      <h3>
-        Base Hapiness : {data.happiness + '/255'}</h3>
-    </hapiness>
+    <div class='data-box'>
+      <experience>
+        <h3>
+          Base Experience : {data.experience}
+        </h3>
+      </experience>
 
-    <capture>
-      <h3>
-        Capture Rate : {(100 * data.gender / 255).toFixed(2) + ' %'}
-      </h3>
-    </capture>
+      <hapiness>
+        <h3>
+          Base Hapiness : {data.happiness + '/255'}</h3>
+      </hapiness>
 
-    <gender>
-      <h3>
-        Gender Rate : {(100 * data.gender / 8).toFixed(2) + ' % female'}
-      </h3>
-    </gender>
+      <capture>
+        <h3>
+          Capture Rate : {(100 * data.gender / 255).toFixed(2) + ' %'}
+        </h3>
+      </capture>
 
-    <abilities>
-      <h3>
-        Abilities
-      </h3>
-      {data.abilities && data
-        .abilities
-        .map((entry) => <ability>
-          <p>{utils.titleCase(entry.ability.name)}</p>
-        </ability>)}
-    </abilities>
-  </div>
+      <gender>
+        <h3>
+          Gender Rate : {(100 * data.gender / 8).toFixed(2) + ' % female'}
+        </h3>
+      </gender>
 
-  <div class='chart-container' style="position: relative; width:50vw;">
-    {() => data.stats && (
-      <canvas
-        class='data-box'
-        id={'stats' + data.id}
-        oncreate={() => utils.chart({
-          id: 'stats' + data.id,
-          labels: data.stats.map(stats => stats.stat.name),
-          data: data.stats.map(stats => stats.base_stat),
-          type: 'horizontalBar'
-        })}>
-      </canvas>
-    )}
-  </div>
+      <abilities>
+        <h3>
+          Abilities
+        </h3>
+        {data.abilities && data
+          .abilities
+          .map((entry) => <ability>
+            <p>{utils.titleCase(entry.ability.name)}</p>
+          </ability>)}
+      </abilities>
+    </div>
 
-  <div>
-    <h3> Moves </h3>
-    {
-      data && data.moves && data.moves.map((entry) =>
-        <move>
-          <h2> {entry && entry.name && utils.titleCase(entry.name)} </h2>
-          <p> Power : {entry.power}</p>
-          <p> Accuracy : {entry.accuracy}</p>
-          <p> PP : {entry.pp}</p>
-          <p> Priority : {entry.priority}</p>
-          <type style={'background-color:' + colors[entry.type].dark}>{entry.type.toUpperCase()}</type>
-        </move>
-      )
-    }
-  </div>
-</pokemon>
+    <div class='chart-container' style="position: relative; width:50vw;">
+      {() => data.stats && (
+        <canvas
+          class='data-box'
+          id={'stats' + data.id}
+          oncreate={() => utils.chart({
+            id: 'stats' + data.id,
+            labels: data.stats.map(stats => stats.stat.name),
+            data: data.stats.map(stats => stats.base_stat),
+            type: 'horizontalBar'
+          })}>
+        </canvas>
+      )}
+    </div>
+  </pokemon>

@@ -1,4 +1,9 @@
-.change_page {
+#pokedex-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.change-page {
     cursor: pointer;
     color: black;
     width: 200px;
@@ -13,7 +18,7 @@
     right: 0;
 }
 
-#pokemon_name {
+#pokemon-name {
     text-decoration: none;
     color: black;
     font-family: 'Quicksand', sans-serif;
