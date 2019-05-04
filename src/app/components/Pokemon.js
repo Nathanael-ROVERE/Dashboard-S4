@@ -16,8 +16,7 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
         </h2>
         {data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength].dark}>{strength.toUpperCase()}</type>)}
       </strengths>
-
-      <identity class='data-box'>
+      <identity class='data-box' style={data.types && data.types.length > 0 && ('background-color:' + colors[data.types[0].type.name].light)}>
         <h2>
           {data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
         </h2>
@@ -26,7 +25,6 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
           <img class='pokemon-image' src={data.sprites && data.sprites.front_default}></img>
           <img class='pokemon-image' src={data.sprites && data.sprites.front_shiny}></img>
         </sprites>
-
         <types class='types'>
           <h3>
             Types
