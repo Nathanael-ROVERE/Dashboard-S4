@@ -3,6 +3,20 @@
     grid-template-columns: repeat(4, 1fr);
 }
 
+#line1, #line2{
+  display: flex;
+  width: 100%;
+}
+
+.chart-container{
+  margin:10px
+}
+
+.chart-container canvas{
+  margin: 0
+}
+
+
 .change-page {
     cursor: pointer;
     color: black;
