@@ -56,7 +56,7 @@ header #menu > .selected, header #menu > *:hover {
 }
 
 header #menuSizeKeeper{ /*Used to keed height during menu element animation*/
-  height: 50px
+  height: 70px
 }
 
 .clickable {
