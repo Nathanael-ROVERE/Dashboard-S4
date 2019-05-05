@@ -3,6 +3,7 @@
   justify-content: space-around;
   align-items: center;
   box-shadow: 0 0px 6px #7c7c7c;
+  position: relative;
 }
 
 .pokemon-preview .add-image {
@@ -22,4 +23,9 @@
   width: 100px;
   height: auto;
   margin: auto;
+}
+
+.add-image{
+  position: absolute;
+  right: 15px;  
 }
