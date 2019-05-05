@@ -41,3 +41,8 @@
     color: black;
     font-family: 'Quicksand', sans-serif;
 }
+
+.buttons{
+  margin: 15px auto;
+  text-align: center;
+}
