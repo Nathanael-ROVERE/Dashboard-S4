@@ -3,7 +3,7 @@ import PokemonPreview from './PokemonPreview'
 import { Link } from '@hyperapp/router'
 import { types } from '../../../../assets/types'
 
-export default ({match, getPokedex, setTeamOverlay, filterPokedex}) => (state) =>
+export default ({match, getPokedex, getStatePokedex, setTeamOverlay, filterPokedex}) =>
   <pokedex id='pokedex' oncreate={() => getPokedex({page: match.params.page, limit: 40})}>
 
     <form id='pokemon-filter' onsubmit={(e) => {
@@ -11,7 +11,7 @@ export default ({match, getPokedex, setTeamOverlay, filterPokedex}) => (state) =
       const name = e.target.elements[0].value
       const types = [...e.target.elements].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
       filterPokedex({name: name, types: types})
-      console.log(state.pokedex)
+      console.log(getStatePokedex())
     }}>
       <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name or id'></input>
       <div id='pokemon-filter-types'>
@@ -26,7 +26,7 @@ export default ({match, getPokedex, setTeamOverlay, filterPokedex}) => (state) =
     </form>
     <div id='pokedex-content'>
       {
-        state.pokedex && Object.entries(state.pokedex).map(pokemon =>
+        getStatePokedex() && Object.entries(getStatePokedex()).map(pokemon =>
           <PokemonPreview
             data={pokemon[1]}
             setTeamOverlay={setTeamOverlay}

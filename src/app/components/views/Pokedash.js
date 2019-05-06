@@ -27,6 +27,7 @@ export default (state, actions) =>
           match: match,
           data: state.pokedex,
           getPokedex: actions.getPokedex,
+          getStatePokedex: actions.getStatePokedex,
           addToTeam: actions.addToTeam,
           teamOverlay: state.teamOverlay,
           setTeamOverlay: actions.setTeamOverlay,
