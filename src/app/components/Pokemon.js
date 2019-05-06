@@ -55,19 +55,23 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
         <h2>
           Statistics for {data && data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
         </h2>
-        {() => data.stats && (
-          <canvas
-            style='background-color: transparent'
-            class='data-box'
-            id={'stats' + data.id}
-            oncreate={() => utils.chart({
-              id: 'stats' + data.id,
-              labels: data.stats.map(stats => stats.stat.name),
-              data: data.stats.map(stats => stats.base_stat),
-              type: 'horizontalBar'
-            })}>
-          </canvas>
-        )}
+        {() => {
+          const getChart = () => utils.chart({
+            id: 'stats' + data.id,
+            labels: data.stats.map(stats => stats.stat.name),
+            data: data.stats.map(stats => stats.base_stat),
+            type: 'horizontalBar'
+          })
+          return (
+            data.stats && <canvas
+              style='background-color: transparent'
+              class='data-box'
+              id={'stats' + data.id}
+              oncreate={getChart}
+              onupdate={getChart}>
+            </canvas>
+          )
+        }}
       </div>
     </div>
   </pokemon>
