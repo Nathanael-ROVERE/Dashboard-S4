@@ -1,6 +1,4 @@
-import {
-  location
-} from '@hyperapp/router'
+import { location } from '@hyperapp/router'
 import Chart from 'chart.js'
 
 const API_URL = 'https://pokeapi.co/api/v2/'
