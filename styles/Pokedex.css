@@ -11,10 +11,6 @@
   width: 100%;
 }
 
-.chart-container{
-  margin: 0 10px;
-  padding: 10px 0;
-}
 
 .chart-container canvas{
   margin:0;

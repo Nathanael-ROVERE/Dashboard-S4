@@ -32,12 +32,12 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
           <h3>
             Types
           </h3>
-          <div id="typeList"> 
+          <div id="typeList">
             {data.types && data.types.map((entry) =>
-            <type style={'background-color:' + colors[entry.type.name].dark}>
-              {entry.type.name.toUpperCase()}
-            </type>
-          )}
+              <type style={'background-color:' + colors[entry.type.name].dark}>
+                {entry.type.name.toUpperCase()}
+              </type>
+            )}
           </div>
         </types>
         <img class='image add-image clickable' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
@@ -52,6 +52,9 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
     </div>
     <div id="line2">
       <div class='data-box' style={'background-color:' + getPokemonSecondColor(data)}>
+        <h2>
+          Attacks
+        </h2>
         <experience>
           <h3>
             Base Experience : {data.experience}
@@ -87,10 +90,13 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
         </abilities>
       </div>
 
-      <div class='chart-container' style='position: relative; width:50vw;'>
+      <div class='chart-container data-box' style={'position: relative; width:50vw; background-color:' + getPokemonSecondColor(data)}>
+        <h2>
+          Statistics
+        </h2>
         {() => data.stats && (
           <canvas
-            style={'background-color:' + getPokemonSecondColor(data)}
+            style='background-color: transparent'
             class='data-box'
             id={'stats' + data.id}
             oncreate={() => utils.chart({
