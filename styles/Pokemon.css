@@ -15,6 +15,7 @@ pokemon {
 }
 
 .data-box {
+  position: relative;
   flex: 1 1 30%;
   margin: 10px 10px;
   background-color: #f0eeee;
@@ -26,7 +27,7 @@ pokemon {
 }
 
 .pokemon-image {
-    width: 200px;    
+    width: 200px;
 }
 
 type {
