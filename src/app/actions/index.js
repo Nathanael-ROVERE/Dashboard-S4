@@ -86,7 +86,7 @@ export const actions = {
               id: pokemon.id,
               name: pokemon.name,
               sprites: pokemon.sprites,
-              types: pokemon.types
+              types: utils.flip(pokemon.types)
             }
           })
         )
@@ -105,7 +105,7 @@ export const actions = {
           data: {
             id: pokemon.id,
             name: pokemon.name,
-            types: pokemon.types,
+            types: utils.flip(pokemon.types),
             sprites: pokemon.sprites,
             experience: species.base_experience,
             hapiness: species.base_hapiness,
