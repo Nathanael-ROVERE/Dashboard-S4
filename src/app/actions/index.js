@@ -1,5 +1,6 @@
 import { location } from '@hyperapp/router'
 import Chart from 'chart.js'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 const API_URL = 'https://pokeapi.co/api/v2/'
 
@@ -65,6 +66,15 @@ export const utils = {
               max: 100
             }
           }]
+        }
+      },
+      plugins: {
+        datalabels: {
+          color: '#36A2EB',
+          anchor: 'end',
+          align: 'end',
+          clamp: 'true',
+          textAlign: 'end'
         }
       }
     })

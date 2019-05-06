@@ -53,7 +53,7 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
     <div id="line2">
       <div class='chart-container data-box' style={'position: relative; width:50vw; background-color:' + getPokemonSecondColor(data)}>
         <h2>
-          Statistics
+          Statistics for {data && data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
         </h2>
         {() => data.stats && (
           <canvas
