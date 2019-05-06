@@ -37,11 +37,23 @@ export default ({match, getPokedex, getStatePokedex, setTeamOverlay, filterPoked
     </div>
     <div class="buttons">
       <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)}>
-        <button class='change-page' onclick={() => getPokedex({page: Math.max(1, parseInt(match.params.page, 10) - 1), limit: 40})}>Previous page</button>
+        <button class='change-page' onclick={() => {
+          getPokedex({page: Math.max(1, parseInt(match.params.page, 10) - 1), limit: 40})
+          document.body.scrollTop = 0 // For Safari
+          document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+        }}>
+          Previous page
+        </button>
       </Link>
 
       <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)}>
-        <button class='change-page next' onclick={() => getPokedex({page: Math.max(1, parseInt(match.params.page, 10) + 1), limit: 40})}>Next page</button>
+        <button class='change-page next' onclick={() => {
+          getPokedex({page: Math.max(1, parseInt(match.params.page, 10) + 1), limit: 40})
+          document.body.scrollTop = 0 // For Safari
+          document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+        }}>
+          Next page
+        </button>
       </Link>
     </div>
   </pokedex>
