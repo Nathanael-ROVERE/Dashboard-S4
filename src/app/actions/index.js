@@ -75,6 +75,7 @@ export const actions = {
   location: location.actions,
 
   getState: () => (state) => state,
+  getStatePokedex: () => (state) => state.pokedex,
 
   getPokedex: ({page, limit}) => (state, actions) => {
     get(POKEMON_PATH + '?limit=' + limit + '&offset=' + (page - 1) * limit).then(response => {
@@ -187,13 +188,14 @@ export const actions = {
       page: 1,
       limit: 800
     })
+    console.log(types)
     actions.set({
       entry: 'pokedex',
-      data: {
-        ...Object.keys(state.pokedex)
-          .filter(key => state.pokedex[key].name.includes(name) && types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true))
-          .map(key => ({[key]: state.pokedex[key]}))
-      }
+      data: Object.keys(actions.getState().pokedex)
+        .filter(key => actions.getState().pokedex[key].name.includes(name) /* && types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true) */)
+        .reduce((accumulator, key) => ({...accumulator, [key]: actions.getState().pokedex[key]}), {})
     })
+    console.log(actions.getState().pokedex)
+    console.log(state.pokedex)
   }
 }

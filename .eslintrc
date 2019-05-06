@@ -45,6 +45,7 @@
     "quotes": "warn",
     "valid-typeof": "warn",
     "fp/no-unused-expression": "off",
+    "fp/no-mutation": "off",
     "fp/no-nil": "off",
     "no-unused-vars": [2, { "varsIgnorePattern": "h" }],
     "react/jsx-uses-vars": "warn"
