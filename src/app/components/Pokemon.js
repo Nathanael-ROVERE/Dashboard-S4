@@ -3,6 +3,9 @@ import { utils } from '../actions/index'
 import { strengths, weaknesses, colors } from '../../../assets/types'
 import { Link } from '@hyperapp/router'
 
+const getPokemonMainColor = (pokemon) => pokemon.types && pokemon.types.length > 0 && colors[pokemon.types[0].type.name].light
+const getPokemonSecondColor = (pokemon) => (pokemon.types && pokemon.types.length > 1 && colors[pokemon.types[1].type.name].light) || getPokemonMainColor(pokemon)
+
 export default({match, data, getPokemon, setTeamOverlay}) =>
 
   <pokemon oncreate={() => getPokemon({id: match.params.id, location: 'pokemon'})}>
@@ -10,13 +13,13 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
       <img class='image back-image clickable' src="/img/previous.png"/>
     </Link>
     <div id="line1">
-      <strengths class='data-box types'>
+      <strengths class='data-box types' style={'background-color:' + getPokemonSecondColor(data)}>
         <h2>
           Strengths
         </h2>
         {data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength].dark}>{strength.toUpperCase()}</type>)}
       </strengths>
-      <identity class='data-box' style={data.types && data.types.length > 0 && ('background-color:' + colors[data.types[0].type.name].light)}>
+      <identity class='data-box' style={'background-color:' + getPokemonMainColor(data)}>
         <h2>
           {data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
         </h2>
@@ -38,7 +41,7 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
         <img class='image add-image clickable' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
       </identity>
 
-      <weaknesses class='data-box types'>
+      <weaknesses class='data-box types' style={'background-color:' + getPokemonSecondColor(data)}>
         <h2>
           Weaknesses
         </h2>
@@ -46,7 +49,7 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
       </weaknesses>
     </div>
     <div id="line2">
-      <div class='data-box'>
+      <div class='data-box' style={'background-color:' + getPokemonSecondColor(data)}>
         <experience>
           <h3>
             Base Experience : {data.experience}
@@ -82,9 +85,10 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
         </abilities>
       </div>
 
-      <div class='chart-container' style="position: relative; width:50vw;">
+      <div class='chart-container' style='position: relative; width:50vw;'>
         {() => data.stats && (
           <canvas
+            style={'background-color:' + getPokemonSecondColor(data)}
             class='data-box'
             id={'stats' + data.id}
             oncreate={() => utils.chart({
