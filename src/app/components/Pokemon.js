@@ -32,11 +32,13 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
           <h3>
             Types
           </h3>
-          {data.types && data.types.map((entry) =>
+          <div id="typeList"> 
+            {data.types && data.types.map((entry) =>
             <type style={'background-color:' + colors[entry.type.name].dark}>
               {entry.type.name.toUpperCase()}
             </type>
           )}
+          </div>
         </types>
         <img class='image add-image clickable' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
       </identity>
