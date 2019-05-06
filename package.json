@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Pokemon companion dashboard",
   "scripts": {
-    "start": "webpack-dev-server --port 3000"
+    "start": "webpack-dev-server --port 4200 --open"
   },
   "devserver": "live-server --browser=Chrome",
   "repository": {
