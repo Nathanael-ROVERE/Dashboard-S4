@@ -1,3 +1,8 @@
+pokemons{
+  display: grid;
+  grid-template-columns: 33.333% 33.333% 33.333%;
+}
+
 #pokedex-content {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

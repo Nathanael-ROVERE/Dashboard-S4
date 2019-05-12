@@ -1,13 +1,78 @@
-.overlay {
-  z-index: 999;
+team{
+  max-width: 1200px;
+  display: block;
+  margin: auto;
+}
+
+.fixedbackground{
+  z-index: 998;
   position: fixed;
   top: 0%;
   left: 0%;
   width: 100%;
   height: 100%;
+  background-color: #000000aa;
+}
+
+.overlay {
   display: flex;
+  z-index: 999;
   margin: auto;
   flex-direction: column;
-  background-color: #000000;
-  opacity: 0.8;
+  max-width: 1200px;
+}
+
+h1{
+  text-align: center;
+  color: white;
+  font-family: 'Futura-Black';
+  font-size: 42px;
+  font-weight: bold;
+}
+
+pokemons button{
+  background: none;
+  border: none;
+}
+
+.overlay pokemons{
+  display: grid;
+  grid-template-columns: 33.333% 33.333% 33.333%;
+}
+
+pokemonpreview{
+  position: relative;
+  min-height: 150px;
+}
+
+button.cancel{
+  margin: auto;
+  width: 30%;
+}
+
+pokemonpreview.empty a{
+  width: 100%;
+  height: -webkit-fill-available;
+  display: flex;
+}
+
+pokemonpreview.empty{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+h2{
+  width: 100%;
+  font-family: 'Futura-Lt-BT';
+  margin:0;
+  padding: 10px 0;
+  text-align: center;
+}
+
+pokemonpreview button{
+  position: absolute;
+  top:5px;
+  right: 5px;
 }

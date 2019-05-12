@@ -4,7 +4,6 @@ import { strengths, weaknesses, colors } from '../../../assets/types'
 import { Link } from '@hyperapp/router'
 
 const getPokemonMainColor = (pokemon) => pokemon && pokemon.types && pokemon.types.length > 0 && colors[pokemon.types[0].type.name].light
-const getPokemonSecondColor = (pokemon) => (pokemon && pokemon.types && pokemon.types.length > 1 && colors[pokemon.types[1].type.name].light) || getPokemonMainColor(pokemon)
 
 export default({match, data, getPokemon, setTeamOverlay}) =>
 
@@ -13,7 +12,7 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
       <img class='image back-image clickable' src="/img/previous.png"/>
     </Link>
     <div id="line1">
-      <strengths class='data-box types' style={'background-color:' + getPokemonSecondColor(data)}>
+      <strengths class='data-box types'>
         <h2>
           Strengths
         </h2>
@@ -43,7 +42,7 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
         <img class='image add-image clickable' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
       </identity>
 
-      <weaknesses class='data-box types' style={'background-color:' + getPokemonSecondColor(data)}>
+      <weaknesses class='data-box types'>
         <h2>
           Weaknesses
         </h2>
@@ -51,7 +50,7 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
       </weaknesses>
     </div>
     <div id="line2">
-      <div class='chart-container data-box' style={'position: relative; width:50vw; background-color:' + getPokemonSecondColor(data)}>
+      <div class='chart-container data-box' style={'position: relative; width:50vw;'}>
         <h2>
           Statistics for {data && data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
         </h2>

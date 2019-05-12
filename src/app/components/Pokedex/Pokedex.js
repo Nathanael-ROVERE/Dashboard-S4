@@ -15,7 +15,7 @@ export default ({match, getPokedex, getStatePokedex, setTeamOverlay, filterPoked
     }}>
       <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name or id'></input>
       <div id='pokemon-filter-types'>
-        {types.map(type =>
+        {types && types.map(type =>
           <div class='pokemon-filter-type'>
             <input type='checkbox' value={type}></input>
             <label>{type}</label>
