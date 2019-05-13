@@ -8,7 +8,7 @@ export default ({data, removeFromTeam, slot}) => {
     const color = (data.types && data.types.length > 0 && colors[data.types[0].type.name])
     return (
       <pokemonpreview class='data-box' style={ 'background-color: ' + (color && color.light) }>
-        <h2 style={ 'background-color: ' + (color && color.dark) }> {data && data.name && '#' + data.id + ' ' + utils.titleCase(data.name)} </h2>
+        <h2 style={ 'background-color: ' + (color && color.dark) }> {data && data.name && utils.titleCase(data.name)} </h2>
         <img src={data && data.sprites && data.sprites.front_default}></img>
         <img onclick={() => removeFromTeam({slot})} class='image del-image clickable' src="/img/cancel.png"/>
       </pokemonpreview>
