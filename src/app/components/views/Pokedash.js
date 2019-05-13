@@ -25,12 +25,17 @@ export default (state, actions) =>
       <Route parent path='/pokedex/:page' render={({match}) => Pokedex(
         {
           match: match,
-          data: state.pokedex,
           getPokedex: actions.getPokedex,
-          getStatePokedex: actions.getStatePokedex,
+          data: Object.entries(state.pokedex).slice(20 * (state.page.value - 1), 20 * state.page.value),
+          page: {
+            value: state.page.value,
+            next: actions.nextPage,
+            previous: actions.previousPage
+          },
           addToTeam: actions.addToTeam,
           teamOverlay: state.teamOverlay,
           setTeamOverlay: actions.setTeamOverlay,
+          search: actions.search,
           filterPokedex: actions.filterPokedex
         }
       )}/>

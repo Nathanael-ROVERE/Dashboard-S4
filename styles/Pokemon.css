@@ -20,6 +20,7 @@ pokemon {
   margin: 10px 10px;
   background-color: #f0eeee;
   box-shadow: 0 4px 6px #7c7c7c;
+  align-content: center;
 }
 
 #stats {

@@ -85,22 +85,25 @@ export const actions = {
   location: location.actions,
 
   getState: () => (state) => state,
-  getStatePokedex: () => (state) => state.pokedex,
 
-  getPokedex: ({page, limit}) => (state, actions) => {
-    get(POKEMON_PATH + '?limit=' + limit + '&offset=' + (page - 1) * limit).then(response => {
-      response.results.map((result, index) =>
-        get(POKEMON_PATH + result.name).then(pokemon =>
-          actions.setToPokedex({
-            id: index,
+  getPokedex: () => (state, actions) => {
+    get(POKEMON_PATH + '?limit=800').then(response => {
+      response.results.map((result) =>
+        get(POKEMON_PATH + result.name).then(pokemon => {
+          actions.set({
+            entry: 'pokedex',
             data: {
-              id: pokemon.id,
-              name: pokemon.name,
-              sprites: pokemon.sprites,
-              types: utils.flip(pokemon.types)
+              ...actions.getState().pokedex,
+              [pokemon.id]: {
+                id: pokemon.id,
+                name: pokemon.name,
+                sprites: pokemon.sprites,
+                types: utils.flip(pokemon.types)
+              }
             }
           })
-        )
+          actions.filterPokedex()
+        })
       )
     })
   },
@@ -132,25 +135,10 @@ export const actions = {
   set: ({
     entry,
     data
-  }) => (state) => {
-    return ({
-      ...state,
-      [entry]: data
-    })
-  },
-
-  setToPokedex: ({
-    id,
-    data
-  }) => (state, actions) => {
-    actions.set({
-      entry: 'pokedex',
-      data: {
-        ...state.pokedex,
-        [id]: data
-      }
-    })
-  },
+  }) => (state) => ({
+    ...state,
+    [entry]: data
+  }),
 
   addToTeam: ({
     data,
@@ -190,22 +178,44 @@ export const actions = {
     })
   },
 
-  filterPokedex: ({
-    name,
-    types
-  }) => (state, actions) => {
-    actions.getPokedex({
-      page: 1,
-      limit: 800
+  search: ({name, types}) => (state, actions) => {
+    actions.set({
+      entry: 'searched',
+      data: {
+        name: name,
+        types: types
+      }
     })
-    console.log(types)
+    actions.getPokedex()
+  },
+
+  nextPage: () => (state, actions) => {
+    actions.filterPokedex()
+    actions.set({
+      entry: 'page',
+      data: {
+        ...state.page,
+        value: Math.min(state.page.value + 1, Object.entries(state.pokedex).length / 20)
+      }
+    })
+  },
+
+  previousPage: () => (state, actions) => {
+    actions.set({
+      entry: 'page',
+      data: {
+        ...state.page,
+        value: Math.max(state.page.value - 1, 0)
+      }
+    })
+  },
+
+  filterPokedex: () => (state, actions) => {
     actions.set({
       entry: 'pokedex',
-      data: Object.keys(actions.getState().pokedex)
-        .filter(key => actions.getState().pokedex[key].name.includes(name) /* && types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true) */)
-        .reduce((accumulator, key) => ({...accumulator, [key]: actions.getState().pokedex[key]}), {})
+      data: Object.keys(state.pokedex)
+        .filter(key => state.pokedex[key].name.includes(state.searched.name) /* && types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true) */)
+        .reduce((accumulator, key) => ({...accumulator, [key]: state.pokedex[key]}), {})
     })
-    console.log(actions.getState().pokedex)
-    console.log(state.pokedex)
   }
 }

@@ -16,5 +16,12 @@ export default {
     4: {},
     5: {},
     6: {}
+  },
+  searched: {
+    name: '',
+    types: []
+  },
+  page: {
+    value: 1
   }
 }
