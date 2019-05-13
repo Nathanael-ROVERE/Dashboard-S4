@@ -65,7 +65,7 @@ pokemonpreview.empty{
 
 h2{
   width: 100%;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Handlee', cursive;
   margin:0;
   padding: 10px 0;
   text-align: center;
@@ -75,4 +75,17 @@ pokemonpreview button{
   position: absolute;
   top:5px;
   right: 5px;
+}
+
+/*cancel button*/
+#cancel {
+  font-family: 'Quicksand', sans-serif;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+
+#cancel:hover {
+  background-color: white;
+  color: black;
 }
