@@ -50,6 +50,22 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
       </weaknesses>
     </div>
     <div id="line2">
+      <div class='data-box'>
+        <h2>
+          Attacks
+        </h2>
+        <div>
+          {console.log(data.bestMoves)} //OK --> length = 4
+          {console.log(data.bestMoves && data.bestMoves[0])} //NULL ????
+          {data.bestMoves && data.bestMoves.map((move) =>
+            <div>
+              Test
+              {console.log(move)}
+            </div>
+          )}
+        </div>
+      </div>
+
       <div class='chart-container data-box' style={'position: relative; width:50vw;'}>
         <h2>
           Statistics for {data && data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
