@@ -55,11 +55,9 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
           Attacks
         </h2>
         <div>
-          {console.log(data.bestMoves)} //OK --> length = 4
-          {console.log(data.bestMoves && data.bestMoves[0])} //NULL ????
-          {data.bestMoves && data.bestMoves.map((move) =>
+          {data.moves && data.moves.map((move) =>
             <div>
-              Test
+              {move.name}
               {console.log(move)}
             </div>
           )}

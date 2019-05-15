@@ -6,7 +6,6 @@ const API_URL = 'https://pokeapi.co/api/v2/'
 
 const POKEMON_PATH = 'pokemon/'
 const POKEMON_SPECIES_PATH = 'pokemon-species/'
-const POKEMON_MOVES_PATH = 'move/'
 
 const getURL = (url) => fetch(url).then(response => response.json()).catch((error) => console.error('ERROR : ', error))
 const get = (query) => getURL(API_URL + query)
@@ -108,45 +107,30 @@ export const actions = {
       )
     })
   },
-  get4PokemonMove: (pokemon) => {
-    let tab = []
-    if (pokemon) {
-      get(POKEMON_MOVES_PATH + '?limit=4')
-        .then(response => {
-          response.results.map((move, i) => {
-            getURL(move.url)
-              .then(movedetails => {
-                // if (state.pokemon.types && state.pokemon.types.length > 0 && movedetails.type.name === state.pokemon.types[0].name && (!state.pokemon.bestMoves[0] || state.pokemon.bestMoves[0].power < movedetails.power)) {
-                tab[i] = movedetails
-                // }
-              })
-          })
-        })
-    }
-    return tab
-  },
-
   getPokemon: ({
     id,
     location
   }) => (state, actions) => {
     get(POKEMON_PATH + id.toLowerCase()).then(pokemon => {
       get(POKEMON_SPECIES_PATH + id.toLowerCase()).then(species => {
-        actions.set({
-          entry: location,
-          data: {
-            id: pokemon.id,
-            name: pokemon.name,
-            types: utils.flip(pokemon.types),
-            sprites: pokemon.sprites,
-            experience: species.base_experience,
-            hapiness: species.base_hapiness,
-            capture: species.capture_rate,
-            gender: species.gender_rate,
-            abilities: pokemon.abilities,
-            stats: pokemon.stats,
-            bestMoves: actions.get4PokemonMove(pokemon)
-          }
+        const moves = pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))
+        Promise.all(moves).then(moves => {
+          actions.set({
+            entry: location,
+            data: {
+              id: pokemon.id,
+              name: pokemon.name,
+              types: utils.flip(pokemon.types),
+              sprites: pokemon.sprites,
+              experience: species.base_experience,
+              hapiness: species.base_hapiness,
+              capture: species.capture_rate,
+              gender: species.gender_rate,
+              abilities: pokemon.abilities,
+              stats: pokemon.stats,
+              moves: moves
+            }
+          })
         })
       })
     })
