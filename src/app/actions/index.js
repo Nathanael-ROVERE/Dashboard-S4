@@ -15,9 +15,9 @@ export const actions = {
   getState: () => (state) => state,
 
   getPokedex: () => (state, actions) => {
-    get(POKEMON_PATH + '?limit=800').then(response => {
+    get(POKEMON_PATH + '?limit=800').then(response =>
       response.results.map((result) =>
-        get(POKEMON_PATH + result.name).then(pokemon => {
+        get(POKEMON_PATH + result.name).then(pokemon =>
           Promise.all(pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))).then(moves =>
             actions.set({
               entry: 'pokedex',
@@ -34,10 +34,16 @@ export const actions = {
               }
             }) && actions.filterPokedex()
           )
-        })
+        )
       )
-    })
+    )
   },
+
+  /**
+   * ***********************************************************************************
+   * Charts handlers, using chart.js library (see /actions/charts.js for chart.js calls)
+   * ***********************************************************************************
+   */
 
   pokemonStatsChart: ({data, id, onCreate}) => (state, actions) => {
     if (onCreate === false || onCreate === !state['first-pokemon-stats-chart-created'] === true) {
@@ -99,10 +105,22 @@ export const actions = {
     }
   },
 
+  /**
+   * ***********************************************************************************
+   * Setter used to change state
+   * ***********************************************************************************
+   */
+
   set: ({entry, data}) => (state) => ({
     ...state,
     [entry]: data
   }),
+
+  /**
+   * ***********************************************************************************
+   * Team handlers
+   * ***********************************************************************************
+   */
 
   addToTeam: ({data, slot}) => (state, actions) => {
     if (data && !data.stats) {
@@ -145,6 +163,12 @@ export const actions = {
     })
   },
 
+  /**
+   * ***********************************************************************************
+   * Navigation handlers
+   * ***********************************************************************************
+   */
+
   search: ({name, types}) => (state, actions) => {
     actions.set({
       entry: 'searched',
@@ -158,11 +182,12 @@ export const actions = {
 
   nextPage: () => (state, actions) => {
     actions.filterPokedex()
+    console.log(state.pokedex)
     actions.set({
       entry: 'page',
       data: {
         ...state.page,
-        value: Math.min(state.page.value + 1, Object.entries(state.pokedex).length / 20)
+        value: Math.min(state.page.value + 1, Math.floor(Object.entries(state.pokedex).length / 20))
       }
     })
   },
@@ -181,7 +206,7 @@ export const actions = {
     actions.set({
       entry: 'pokedex',
       data: Object.keys(state.pokedex)
-        .filter(key => state.pokedex[key].name.includes(state.searched.name) /* && types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true) */)
+        .filter(key => state.pokedex[key].name.includes(state.searched.name) /* && state.searched.types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true) */)
         .reduce((accumulator, key) => ({...accumulator, [key]: state.pokedex[key]}), {})
     })
   }

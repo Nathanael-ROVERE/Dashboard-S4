@@ -24,6 +24,7 @@ export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPo
       </div>
       <input type='submit' value='Search'></input>
     </form>
+
     <div id='pokedex-content'>
       {
         data && data.map(pokemon =>
@@ -50,7 +51,7 @@ export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPo
       }
 
       {
-        () => (page.value >= data.length / 20) &&
+        () => (page.value <= Math.round(data.length / 20)) &&
           <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)}>
             <button class='change-page next' onclick={() => {
               page.next()

@@ -5,8 +5,6 @@ export default ({data, toAdd, addToTeam, setTeamOverlay, colors}) =>
   <div class='fixedbackground'>
     <teamselect class='overlay'>
       <h1>Votre équipe</h1>
-      {console.log('team select')}
-      {console.log(data)}
       <pokemons>
         {
           data && Object.entries(data).map((pokemon, index) =>

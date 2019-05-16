@@ -49,11 +49,15 @@ header #menu > *{
   text-decoration: none;
 }
 
-header #menu > .selected, header #menu > *:hover {
-  padding: 20px 0;
-  font-size: 110%;
+header #menu > *:hover {
+  background-color: rgb(212, 208, 177);
   color: #753519;
 }
+
+header #menu > .selected {
+  background-color: rgb(136, 130, 88);
+}
+
 
 header #menuSizeKeeper{ /*Used to keed height during menu element animation*/
   height: 70px

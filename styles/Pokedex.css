@@ -11,6 +11,10 @@ pokemons{
     margin:auto;
 }
 
+#pokemon-filter {
+  
+}
+
 #line1, #line2{
   display: flex;
   width: 100%;
