@@ -1,164 +1,131 @@
 import { location } from '@hyperapp/router'
-import Chart from 'chart.js'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
+import { charts } from './charts'
+import { utils } from './utils'
+import { types as typesNames } from '../../../assets/types'
 
 const API_URL = 'https://pokeapi.co/api/v2/'
 
 const POKEMON_PATH = 'pokemon/'
-const POKEMON_SPECIES_PATH = 'pokemon-species/'
 
 const getURL = (url) => fetch(url).then(response => response.json()).catch((error) => console.error('ERROR : ', error))
 const get = (query) => getURL(API_URL + query)
 
-export const utils = {
-  titleCase: (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase(),
-  flip: (array) => array.reduce((accumulator, current) => ([current, ...accumulator]), []),
-  color: (value) => {
-    const hue = ((value / 200) * 1.1 * 120).toString(10)
-    return ['hsl(', hue, ',100%,50%)'].join('')
-  },
-  chart: ({
-    id,
-    labels,
-    data,
-    type
-  }) => {
-    const ctx = document.getElementById(id)
-    const chart = new Chart(ctx, {
-      type: type,
-      data: {
-        labels: utils.flip(labels),
-        datasets: [{
-          label: 'Stats',
-          data: utils.flip(data),
-          backgroundColor: utils.flip(data).map(value => utils.color(value)),
-          borderWidth: 1
-        }]
-      },
-      options: {
-        tooltips: {
-          enabled: false
-        },
-        events: true,
-        responsive: true,
-        legend: {
-          position: 'bottom'
-        },
-        hover: {
-          mode: 'label'
-        },
-        scales: {
-          xAxes: [{
-            display: false,
-            ticks: {
-              beginAtZero: true,
-              steps: 10,
-              stepValue: 5,
-              max: 200
-            }
-          }],
-          yAxes: [{
-            display: true,
-            ticks: {
-              beginAtZero: true,
-              steps: 10,
-              stepValue: 5,
-              max: 100
-            }
-          }]
-        }
-      },
-      plugins: {
-        datalabels: {
-          color: '#36A2EB',
-          anchor: 'end',
-          align: 'end',
-          clamp: 'true',
-          textAlign: 'end'
-        }
-      }
-    })
-  }
-}
-
 export const actions = {
   location: location.actions,
-
   getState: () => (state) => state,
 
   getPokedex: () => (state, actions) => {
     get(POKEMON_PATH + '?limit=800').then(response => {
       response.results.map((result) =>
         get(POKEMON_PATH + result.name).then(pokemon => {
-          actions.set({
-            entry: 'pokedex',
-            data: {
-              ...actions.getState().pokedex,
-              [pokemon.id]: {
-                id: pokemon.id,
-                name: pokemon.name,
-                sprites: pokemon.sprites,
-                types: utils.flip(pokemon.types)
+          Promise.all(pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))).then(moves =>
+            actions.set({
+              entry: 'pokedex',
+              data: {
+                ...actions.getState().pokedex,
+                [pokemon.id]: {
+                  id: pokemon.id,
+                  name: pokemon.name,
+                  sprites: pokemon.sprites,
+                  types: utils.flip(pokemon.types),
+                  stats: pokemon.stats,
+                  moves: moves
+                }
               }
-            }
-          })
-          actions.filterPokedex()
+            }) && actions.filterPokedex()
+          )
         })
       )
     })
   },
-  getPokemon: ({
-    id,
-    location
-  }) => (state, actions) => {
-    get(POKEMON_PATH + id.toLowerCase()).then(pokemon => {
-      get(POKEMON_SPECIES_PATH + id.toLowerCase()).then(species => {
-        const moves = pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))
-        Promise.all(moves).then(moves => {
-          actions.set({
-            entry: location,
-            data: {
-              id: pokemon.id,
-              name: pokemon.name,
-              types: utils.flip(pokemon.types),
-              sprites: pokemon.sprites,
-              experience: species.base_experience,
-              hapiness: species.base_hapiness,
-              capture: species.capture_rate,
-              gender: species.gender_rate,
-              abilities: pokemon.abilities,
-              stats: pokemon.stats,
-              moves: moves
-            }
-          })
-        })
+
+  pokemonStatsChart: ({data, id, onCreate}) => (state, actions) => {
+    if (onCreate === false || onCreate === !state['first-pokemon-stats-chart-created'] === true) {
+      charts['horizontal-bar-stats-chart']({
+        id: 'stats' + id,
+        labels: data.map(stats => stats.stat.name),
+        data: data.map(stats => stats.base_stat)
       })
-    })
+    } else if (onCreate === !state['first-pokemon-stats-chart-created'] === true) {
+      actions.set({
+        entry: 'first-pokemon-stats-chart-created',
+        data: true
+      })
+    }
   },
-  set: ({
-    entry,
-    data
-  }) => (state) => ({
+
+  teamAverageStats: () => (state) => {
+    const stats = Object.entries(state.team).map(entry => entry[1].stats).filter(entry => (entry !== null && entry !== undefined))
+    const average = stats.reduce((accumulator, current) => accumulator.map((stat, index) => (current) ? stat + current[index].base_stat : stat), Array(6).fill(0)).map(stat => Math.round(stat / stats.length, 1).toFixed())
+    return average
+  },
+
+  teamStatsChart: ({onCreate}) => (state, actions) => {
+    if (onCreate === false || onCreate === !state['first-team-stats-chart-created'] === true) {
+      charts['radar-stats-chart']({
+        id: 'team-stats',
+        labels: ['speed', 'sepcial-defense', 'special-attack', 'defense', 'attack', 'hp'],
+        data: actions.teamAverageStats()
+      })
+    } else if (onCreate === !state['first-team-stats-chart-created'] === true) {
+      actions.set({
+        entry: 'first-team-stats-chart-created',
+        data: true
+      })
+    }
+  },
+
+  teamTypesCount: () => (state) => {
+    const types = Object.entries(state.team)
+      .map(entry => entry[1].types && entry[1].types.reduce((accumulator, current) => [...accumulator, current.type.name], []))
+      .filter(entry => (entry !== null && entry !== undefined))
+      .reduce((accumulator, current) => [...accumulator, ...current], [])
+    const count = typesNames.map(typeName => types.filter(type => type === typeName).length)
+    return count
+  },
+
+  teamTypesChart: ({onCreate}) => (state, actions) => {
+    if (onCreate === false || onCreate === !state['first-team-stats-chart-created'] === true) {
+      charts['pie-types-chart']({
+        id: 'team-types',
+        labels: typesNames,
+        data: actions.teamTypesCount()
+      })
+    } else if (onCreate === !state['first-team-stats-chart-created'] === true) {
+      actions.set({
+        entry: 'first-team-types-chart-created',
+        data: true
+      })
+    }
+  },
+
+  set: ({entry, data}) => (state) => ({
     ...state,
     [entry]: data
   }),
 
-  addToTeam: ({
-    data,
-    slot
-  }) => (state, actions) => {
-    actions.set({
-      entry: 'team',
-      data: {
-        ...state.team,
-        [slot]: data
-      }
-    })
+  addToTeam: ({data, slot}) => (state, actions) => {
+    if (data && !data.stats) {
+      console.log(data)
+      actions.getPokemon({id: data.name}).then(response => console.log('response', response) && actions.set({
+        entry: 'team',
+        data: {
+          ...state.team,
+          [slot]: response
+        }
+      }))
+    } else {
+      actions.set({
+        entry: 'team',
+        data: {
+          ...state.team,
+          [slot]: data
+        }
+      })
+    }
   },
 
-  removeFromTeam: ({
-    slot
-  }) => (state, actions) => {
+  removeFromTeam: ({slot}) => (state, actions) => {
     actions.set({
       entry: 'team',
       data: {
@@ -168,10 +135,7 @@ export const actions = {
     })
   },
 
-  setTeamOverlay: ({
-    display,
-    toAdd
-  }) => (state, actions) => {
+  setTeamOverlay: ({display, toAdd}) => (state, actions) => {
     actions.set({
       entry: 'teamOverlay',
       data: {

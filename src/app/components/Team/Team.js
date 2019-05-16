@@ -1,9 +1,7 @@
 import { h } from 'hyperapp'
 import TeamPokemonPreview from '../Team/SelectOverlay/TeamPokemonPreview'
-import { utils } from '../../actions/index'
-import { colors } from '../../../../assets/types'
 
-export default ({data, removeFromTeam}) =>
+export default ({data, removeFromTeam, statsChart, typesChart}) =>
   <team>
     <pokemons>
       {
@@ -11,7 +9,12 @@ export default ({data, removeFromTeam}) =>
           <TeamPokemonPreview
             data={pokemon[1]}
             slot={index + 1}
-            removeFromTeam={removeFromTeam}>
+            removeFromTeam={removeFromTeam}
+            updateCharts={() => {
+              statsChart({onCreate: false})
+              typesChart({onCreate: false})
+            }}
+          >
           </TeamPokemonPreview>
         )
       }
@@ -20,14 +23,17 @@ export default ({data, removeFromTeam}) =>
       {() => data && (
         <canvas
           class='data-box'
-          id={'stats' + data.id}
-          oncreate={() => utils.chart({
-            id: 'stats' + data.id,
-            labels: data.stats.map(stats => stats.stat.name),
-            data: data.stats.map(stats => stats.base_stat),
-            colors: colors,
-            type: 'horizontalBar'
-          })}>
+          id='team-stats'
+          oncreate={() => statsChart({onCreate: true})}>
+        </canvas>
+      )}
+    </div>
+    <div class='chart-container' style="position: relative; width:50vw">
+      {() => data && (
+        <canvas
+          class='data-box'
+          id='team-types'
+          oncreate={() => typesChart({onCreate: true})}>
         </canvas>
       )}
     </div>

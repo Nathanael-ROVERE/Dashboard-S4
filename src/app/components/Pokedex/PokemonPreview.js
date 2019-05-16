@@ -1,5 +1,5 @@
 import { h } from 'hyperapp'
-import { utils } from '../../actions/index'
+import { utils } from '../../actions/utils'
 import { Link } from '@hyperapp/router'
 import { colors } from '../../../../assets/types'
 

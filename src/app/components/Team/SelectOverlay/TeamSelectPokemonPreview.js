@@ -1,5 +1,5 @@
 import { h } from 'hyperapp'
-import { utils } from '../../../actions/index'
+import { utils } from '../../../actions/utils'
 import { colors } from '../../../../../assets/types'
 
 export default ({data}) => {

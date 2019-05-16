@@ -1,22 +1,22 @@
 export const types = [
-  'normal',
-  'fire',
-  'water',
-  'electric',
-  'grass',
-  'ice',
-  'fighting',
-  'poison',
-  'ground',
-  'flying',
-  'psychic',
   'bug',
-  'rock',
-  'ghost',
-  'dragon',
   'dark',
+  'dragon',
+  'electric',
+  'fairy',
+  'fighting',
+  'fire',
+  'flying',
+  'ghost',
+  'grass',
+  'ground',
+  'ice',
+  'normal',
+  'poison',
+  'psychic',
+  'rock',
   'steel',
-  'fairy'
+  'water'
 ]
 
 export const colors = {

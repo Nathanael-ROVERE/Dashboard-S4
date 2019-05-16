@@ -1,13 +1,13 @@
 import { h } from 'hyperapp'
-import { utils } from '../actions/index'
+import { utils } from '../actions/utils'
 import { strengths, weaknesses, colors } from '../../../assets/types'
 import { Link } from '@hyperapp/router'
 
 const getPokemonMainColor = (pokemon) => pokemon && pokemon.types && pokemon.types.length > 0 && colors[pokemon.types[0].type.name].light
 
-export default({match, data, getPokemon, setTeamOverlay}) =>
+export default({data, setTeamOverlay, statsChart}) =>
 
-  <pokemon oncreate={() => getPokemon({id: match.params.id, location: 'pokemon'})}>
+  <pokemon>
     <Link to={location.previous}>
       <img class='image back-image clickable' src="/img/previous.png"/>
     </Link>
@@ -68,23 +68,14 @@ export default({match, data, getPokemon, setTeamOverlay}) =>
         <h2>
           Statistics for {data && data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
         </h2>
-        {() => {
-          const getChart = () => utils.chart({
-            id: 'stats' + data.id,
-            labels: data.stats.map(stats => stats.stat.name),
-            data: data.stats.map(stats => stats.base_stat),
-            type: 'horizontalBar'
-          })
-          return (
-            data.stats && <canvas
-              style='background-color: transparent'
-              class='data-box'
-              id={'stats' + data.id}
-              oncreate={getChart}
-              onupdate={getChart}>
-            </canvas>
-          )
-        }}
+        {() => data.stats && <canvas
+          style='background-color: transparent'
+          class='data-box'
+          id={'stats' + data.id}
+          onupdate={() => statsChart({data: data.stats, id: data.id, onCreate: false})}
+          oncreate={() => statsChart({data: data.stats, id: data.id, onCreate: true})}>
+        </canvas>
+        }
       </div>
     </div>
   </pokemon>

@@ -41,13 +41,20 @@ export default (state, actions) =>
       )}/>
       <Route path='/pokemon/:id' render={({match}) => Pokemon(
         {
-          match: match,
-          data: state.pokemon,
-          getPokemon: actions.getPokemon,
-          setTeamOverlay: actions.setTeamOverlay
+          data: state.pokedex[match.params.id],
+          setTeamOverlay: actions.setTeamOverlay,
+          statsChart: actions.pokemonStatsChart
         }
       )}/>
-      <Route path='/team' render={() => Team({data: state.team, removeFromTeam: actions.removeFromTeam})}></Route>
+      <Route path='/team' render={() => Team(
+        {
+          data: state.team,
+          removeFromTeam: actions.removeFromTeam,
+          statsChart: actions.teamStatsChart,
+          typesChart: actions.teamTypesChart
+        }
+      )}>
+      </Route>
       <Route render={() => <div>PAGE NOT FOUND</div>}/>
     </Switch>
   </app>

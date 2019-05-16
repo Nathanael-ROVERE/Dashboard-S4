@@ -23,5 +23,8 @@ export default {
   },
   page: {
     value: 1
-  }
+  },
+  'first-pokemon-stats-chart-created': false,
+  'first-team-stats-chart-created': false,
+  'first-team-types-chart-created': false
 }
