@@ -4,7 +4,7 @@ import TeamSelectPokemonPreview from '../SelectOverlay/TeamSelectPokemonPreview'
 export default ({data, toAdd, addToTeam, setTeamOverlay, colors}) =>
   <div class='fixedbackground'>
     <teamselect class='overlay'>
-      <h1>Votre équipe</h1>
+      <h1 class='votre_equipe'>Votre équipe</h1>
       <pokemons>
         {
           data && Object.entries(data).map((pokemon, index) =>
@@ -23,6 +23,6 @@ export default ({data, toAdd, addToTeam, setTeamOverlay, colors}) =>
           )
         }
       </pokemons>
-      <button class="cancel" onclick={() => setTeamOverlay({display: false, toAdd: {}})}>Cancel</button>
+      <button class='cancel' onclick={() => setTeamOverlay({display: false, toAdd: {}})}>Cancel</button>
     </teamselect>
   </div>
