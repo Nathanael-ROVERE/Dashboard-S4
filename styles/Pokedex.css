@@ -11,6 +11,38 @@ pokemons {
     margin:auto;
 }
 
+#pokemon-filter-name {
+  background-color: #FBF6D0;
+  color: #FF6666;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+  width: 200px;
+  border-color: #FF6666;
+  border: 3px;
+  cursor: text;
+  position: center;
+}
+
+input {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+  border: none;
+  color: #FBF6D0;
+  border-radius: 5px;
+  background-color: #FF6666;
+  cursor: pointer;
+  
+}
+
+label {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.8em;
+}
+
+#pokemon-filter-name::placeholder {
+    color: #FF6666;
+}
+
 #pokemon-filter {
   
 }
