@@ -16,7 +16,15 @@ export default({data, setTeamOverlay, statsChart}) =>
         <h2>
           Strengths
         </h2>
-        {data && data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength].dark}>{strength.toUpperCase()}</type>)}
+        {data && data.types && strengths(data.types.map(entry => entry.type.name)).map(strength =>
+          <type style={'background-color:' + colors[strength].dark}>
+            <h3>
+              {strength.toUpperCase()}
+            </h3>
+            <div class='color' style={'background-color:' + colors[strength].light}>
+            </div>
+          </type>
+        )}
       </strengths>
       <identity class='data-box' style={'background-color:' + getPokemonMainColor(data)}>
         <h2>
@@ -46,19 +54,29 @@ export default({data, setTeamOverlay, statsChart}) =>
         <h2>
           Weaknesses
         </h2>
-        {data && data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <type style={'background-color:' + colors[weakness].dark}>{weakness.toUpperCase()}</type>)}
+        {data && data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness =>
+          <type style={'background-color:' + colors[weakness].dark}>
+            <h3>
+              {weakness.toUpperCase()}
+            </h3>
+            <div class='color' style={'background-color:' + colors[weakness].light}>
+            </div>
+          </type>
+        )}
       </weaknesses>
     </div>
     <div id="line2">
-      <div class='data-box'>
+      <div id="moves" class='data-box'>
         <h2>
           Attacks
         </h2>
         <div>
           {data.moves && data.moves.map((move) =>
-            <div>
-              {move.name}
-              {console.log(move)}
+            <div class="move" style={'background-color:' + colors[move.type.name].light}>
+              <h3 style={'background-color:' + colors[move.type.name].dark}>{move.name}</h3>
+              <p>Power: {move.power}</p>
+              <p>Accuracy: {move.accuracy}</p>
+              <p>PP: {move.pp}</p>
             </div>
           )}
         </div>
