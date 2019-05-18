@@ -1,5 +1,5 @@
 import { h } from 'hyperapp'
-import TeamPokemonPreview from '../Team/SelectOverlay/TeamPokemonPreview'
+import TeamPokemonPreview from './TeamPokemonPreview'
 
 export default ({data, removeFromTeam, statsChart, typesChart}) =>
   <team>

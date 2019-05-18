@@ -15,10 +15,10 @@ export const actions = {
   getState: () => (state) => state,
 
   getPokedex: () => (state, actions) => {
-    get(POKEMON_PATH + '?limit=80').then(response =>
+    get(POKEMON_PATH + '?limit=800').then(response =>
       response.results.map((result) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
-          Promise.all(pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))).then(moves =>
+          Promise.all(pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))).then(moves => {
             actions.set({
               entry: 'pokedex',
               data: {
@@ -32,8 +32,16 @@ export const actions = {
                   moves: moves
                 }
               }
-            }) && actions.filterPokedex()
-          )
+            })
+            actions.filterPokedex()
+            actions.set({
+              entry: 'page',
+              data: {
+                ...actions.getState().page,
+                max: Object.entries(actions.getState().pokedex).length / 20
+              }
+            })
+          })
         )
       )
     )
@@ -116,6 +124,8 @@ export const actions = {
     [entry]: data
   }),
 
+  shiny: (value) => (state, actions) => (value !== undefined && value !== null) && actions.set({entry: 'shiny', data: value}),
+
   /**
    * ***********************************************************************************
    * Team handlers
@@ -182,14 +192,14 @@ export const actions = {
 
   nextPage: () => (state, actions) => {
     actions.filterPokedex()
-    console.log(state.pokedex)
     actions.set({
       entry: 'page',
       data: {
         ...state.page,
-        value: Math.min(state.page.value + 1, Math.floor(Object.entries(state.pokedex).length / 20))
+        value: Math.min(state.page.value + 1, Math.round(Object.entries(state.pokedex).length / 20))
       }
     })
+    console.log(actions.getState().page)
   },
 
   previousPage: () => (state, actions) => {
@@ -200,6 +210,7 @@ export const actions = {
         value: Math.max(state.page.value - 1, 0)
       }
     })
+    console.log(actions.getState().page)
   },
 
   filterPokedex: () => (state, actions) => {
