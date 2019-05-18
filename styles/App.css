@@ -8,6 +8,11 @@
   src: url("/fonts/FutuLt.ttf") format("ttf");
 }
 
+a, a:hover, a:active, a:visited{
+  text-decoration: none;
+  color: inherit;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -65,4 +70,16 @@ header #menuSizeKeeper{ /*Used to keed height during menu element animation*/
 
 .clickable {
   cursor: pointer;
+}
+
+.data-box{
+  padding: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  header #title img{
+    height: auto;
+    max-width: 80%
+  }
 }

@@ -15,7 +15,7 @@ export const actions = {
   getState: () => (state) => state,
 
   getPokedex: () => (state, actions) => {
-    get(POKEMON_PATH + '?limit=40').then(response =>
+    get(POKEMON_PATH + '?limit=80').then(response =>
       response.results.map((result) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
           Promise.all(pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))).then(moves => {
