@@ -16,7 +16,12 @@ export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPo
       </input>
 
       <div id='pokemon-filter-types'>
-        <button id='pokemon-filter-types-dropdown-button' onclick={() => document.getElementById('pokemon-filter-types-list').classList.toggle('show')}>Types</button>
+        <button id='pokemon-filter-types-dropdown-button' onclick={(event) => {
+          event.preventDefault()
+          document.getElementById('pokemon-filter-types-list').classList.toggle('show')
+        }}>
+          Types
+        </button>
         <div id='pokemon-filter-types-list'>
           {types && types.map(type =>
             <div class='pokemon-filter-type'>
