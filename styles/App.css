@@ -8,6 +8,11 @@
   src: url("/fonts/FutuLt.ttf") format("ttf");
 }
 
+a, a:hover, a:active, a:visited{
+  text-decoration: none;
+  color: inherit;
+}
+
 html {
   scroll-behavior: smooth;
 }

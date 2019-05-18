@@ -15,6 +15,10 @@
   text-decoration: none;
 }
 
+pokemonpreview .preview-link {
+  width: 100%;
+}
+
 .preview-link img {
   width: 100px;
   height: auto;
@@ -50,9 +54,6 @@ div .img{
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  .preview-link {
-    width: 100%;
-  }
 
   .preview-link img{
     max-width: 60px;
