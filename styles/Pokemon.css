@@ -92,3 +92,20 @@ type h3{
   padding-left: 25%;
   margin:8px;
 }
+
+.chartjs-render-monitor{
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+
+  #moves > div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .chart-container{
+    width: calc(100% - 50px)!important;
+  }
+}

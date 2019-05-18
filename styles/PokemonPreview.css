@@ -47,3 +47,30 @@ div .img{
   height: 15px;
   width: 15px;
 }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .preview-link {
+    width: 100%;
+  }
+
+  .preview-link img{
+    max-width: 60px;
+  }
+
+  div .img{
+    width: 25px;
+  }
+
+  .add-image{
+    width: 18px;
+    height: 18px;
+  }
+
+  .del-image{
+    top:initial;
+    bottom: 10px;
+    width: 10px;
+    height: 10px;
+  }
+}

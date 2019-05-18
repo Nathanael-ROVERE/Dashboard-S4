@@ -66,3 +66,15 @@ header #menuSizeKeeper{ /*Used to keed height during menu element animation*/
 .clickable {
   cursor: pointer;
 }
+
+.data-box{
+  padding: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  header #title img{
+    height: auto;
+    max-width: 80%
+  }
+}
