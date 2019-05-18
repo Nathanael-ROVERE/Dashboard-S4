@@ -30,7 +30,8 @@ export default (state, actions) =>
           page: {
             value: state.page.value,
             next: actions.nextPage,
-            previous: actions.previousPage
+            previous: actions.previousPage,
+            max: state.page.max
           },
           addToTeam: actions.addToTeam,
           teamOverlay: state.teamOverlay,

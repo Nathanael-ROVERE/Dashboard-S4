@@ -4,8 +4,8 @@ import { Link } from '@hyperapp/router'
 import { types } from '../../../../assets/types'
 
 export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPokedex}) =>
-  <pokedex id='pokedex' oncreate={() => getPokedex({page: match.params.page, limit: 40})}>
 
+  <pokedex id='pokedex' oncreate={() => getPokedex()}>
     <form id='pokemon-filter' onsubmit={(e) => {
       e.preventDefault()
       const name = e.target.elements[0].value
@@ -38,7 +38,7 @@ export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPo
     </div>
     <div class="buttons">
       {
-        () => (page.value !== 1) &&
+        () => (page.value > 1) &&
           <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)}>
             <button class='change-page' onclick={() => {
               page.previous()
@@ -50,8 +50,9 @@ export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPo
           </Link>
       }
 
+      {console.log(Math.round(data.length / 20))}
       {
-        () => (page.value <= Math.round(data.length / 20)) &&
+        () => (page.value < page.max) &&
           <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)}>
             <button class='change-page next' onclick={() => {
               page.next()
