@@ -124,6 +124,8 @@ export const actions = {
     [entry]: data
   }),
 
+  shiny: (value) => (state, actions) => (value !== undefined && value !== null) && actions.set({entry: 'shiny', data: value}),
+
   /**
    * ***********************************************************************************
    * Team handlers

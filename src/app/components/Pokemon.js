@@ -5,28 +5,40 @@ import { Link } from '@hyperapp/router'
 
 const getPokemonMainColor = (pokemon) => pokemon && pokemon.types && pokemon.types.length > 0 && colors[pokemon.types[0].type.name].light
 
-export default({data, setTeamOverlay, statsChart}) =>
+export default({data, setTeamOverlay, statsChart, shiny}) =>
 
-  <pokemon>
+  <pokemon oncreate={() => shiny.set(false)}>
+
     <Link to={location.previous}>
       <img class='image back-image clickable' src="/img/previous.png"/>
     </Link>
+
     <div id="line1">
+
       <strengths class='data-box types'>
         <h2>
           Strengths
         </h2>
         {data && data.types && strengths(data.types.map(entry => entry.type.name)).map(strength => <type style={'background-color:' + colors[strength].dark}>{strength.toUpperCase()}</type>)}
       </strengths>
+
       <identity class='data-box' style={'background-color:' + getPokemonMainColor(data)}>
+
         <h2>
           {data && data.name && '#' + data.id + ' ' + utils.titleCase(data.name)}
         </h2>
 
         <sprites>
-          <img class='pokemon-image' src={data && data.sprites && data.sprites.front_default}></img>
-          <img class='pokemon-image' src={data && data.sprites && data.sprites.front_shiny}></img>
+          <div id='shiny-selector'>
+            <label>Shiny</label>
+            <input type='checkbox' id='shiny-selector-checkbox' autocomplete='off' onchange={(event) => shiny.set(event.target.checked)}></input>
+          </div>
+          {() => data && data.sprites && (shiny.value)
+            ? <img class='pokemon-image' src={data.sprites.front_shiny}></img>
+            : <img class='pokemon-image' src={data.sprites.front_default}></img>
+          }
         </sprites>
+
         <types class='types'>
           <h3>
             Types
@@ -39,6 +51,7 @@ export default({data, setTeamOverlay, statsChart}) =>
             )}
           </div>
         </types>
+
         <img class='image add-image clickable' src="/img/add.png" onclick={() => setTeamOverlay({display: true, toAdd: data})}/>
       </identity>
 
@@ -49,6 +62,7 @@ export default({data, setTeamOverlay, statsChart}) =>
         {data && data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness => <type style={'background-color:' + colors[weakness].dark}>{weakness.toUpperCase()}</type>)}
       </weaknesses>
     </div>
+
     <div id="line2">
       <div class='data-box'>
         <h2>
@@ -58,7 +72,6 @@ export default({data, setTeamOverlay, statsChart}) =>
           {data.moves && data.moves.map((move) =>
             <div>
               {move.name}
-              {console.log(move)}
             </div>
           )}
         </div>

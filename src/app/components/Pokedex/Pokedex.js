@@ -17,7 +17,7 @@ export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPo
       <div id='pokemon-filter-types'>
         {types && types.map(type =>
           <div class='pokemon-filter-type'>
-            <input id='checkbox_type' type='checkbox' value={type}></input>
+            <input id='checkbox-type' type='checkbox' value={type}></input>
             <label>{type}</label>
           </div>
         )}

@@ -21,6 +21,7 @@ export default {
     name: '',
     types: []
   },
+  shiny: false,
   page: {
     value: 1
   },

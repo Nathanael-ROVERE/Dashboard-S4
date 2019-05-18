@@ -44,7 +44,11 @@ export default (state, actions) =>
         {
           data: state.pokedex[match.params.id],
           setTeamOverlay: actions.setTeamOverlay,
-          statsChart: actions.pokemonStatsChart
+          statsChart: actions.pokemonStatsChart,
+          shiny: {
+            set: actions.shiny,
+            value: state.shiny
+          }
         }
       )}/>
       <Route path='/team' render={() => Team(

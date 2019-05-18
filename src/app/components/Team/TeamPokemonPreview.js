@@ -1,6 +1,6 @@
 import { h } from 'hyperapp'
-import { utils } from '../../../actions/utils'
-import { colors } from '../../../../../assets/types'
+import { utils } from '../../actions/utils'
+import { colors } from '../../../../assets/types'
 import { Link } from '@hyperapp/router'
 
 export default ({data, removeFromTeam, updateCharts, slot}) => {
@@ -8,8 +8,10 @@ export default ({data, removeFromTeam, updateCharts, slot}) => {
     const color = (data.types && data.types.length > 0 && colors[data.types[0].type.name])
     return (
       <pokemonpreview class='data-box' style={ 'background-color: ' + (color && color.light) }>
-        <h2 style={ 'background-color: ' + (color && color.dark) }> {data && data.name && utils.titleCase(data.name)} </h2>
-        <img src={data && data.sprites && data.sprites.front_default}></img>
+        <Link class='preview-link' to={'/pokemon/' + data.id}>
+          <h2 style={ 'background-color: ' + (color && color.dark) }> {data && data.name && utils.titleCase(data.name)} </h2>
+          <img src={data && data.sprites && data.sprites.front_default}></img>
+        </Link>
         <img onclick={() => {
           removeFromTeam({slot})
           updateCharts()
