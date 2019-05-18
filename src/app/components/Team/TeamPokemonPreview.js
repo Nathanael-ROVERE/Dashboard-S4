@@ -5,7 +5,7 @@ import { Link } from '@hyperapp/router'
 
 export default ({data, removeFromTeam, updateCharts, slot}) => {
   if (data && Object.keys(data).length > 0) {
-    const color = (data.types && data.types.length > 0 && colors[data.types[0].type.name])
+    const color = (data.types && data.types.length > 0 && colors[data.types[0]])
     return (
       <pokemonpreview class='data-box' style={ 'background-color: ' + (color && color.light) }>
         <Link class='preview-link' to={'/pokemon/' + data.id}>

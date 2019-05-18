@@ -27,7 +27,7 @@ export const actions = {
                   id: pokemon.id,
                   name: pokemon.name,
                   sprites: pokemon.sprites,
-                  types: utils.flip(pokemon.types),
+                  types: utils.flip(pokemon.types.map(type => type.type.name)),
                   stats: pokemon.stats,
                   moves: moves
                 }
@@ -91,7 +91,7 @@ export const actions = {
 
   teamTypesCount: () => (state) => {
     const types = Object.entries(state.team)
-      .map(entry => entry[1].types && entry[1].types.reduce((accumulator, current) => [...accumulator, current.type.name], []))
+      .map(entry => entry[1].types && entry[1].types.reduce((accumulator, current) => [...accumulator, current], []))
       .filter(entry => (entry !== null && entry !== undefined))
       .reduce((accumulator, current) => [...accumulator, ...current], [])
     const count = typesNames.map(typeName => types.filter(type => type === typeName).length)
@@ -187,6 +187,7 @@ export const actions = {
         types: types
       }
     })
+    console.log(name, types)
     actions.getPokedex()
   },
 
@@ -217,7 +218,9 @@ export const actions = {
     actions.set({
       entry: 'pokedex',
       data: Object.keys(state.pokedex)
-        .filter(key => state.pokedex[key].name.includes(state.searched.name) /* && state.searched.types.reduce((accumulator, type) => accumulator && state.pokedex[key].types.includes(type), true) */)
+        .filter(key => state.pokedex[key].name.includes(state.searched.name) && state.searched.types.reduce((accumulator, type) => {
+          return accumulator && state.pokedex[key].types.includes(type)
+        }, true))
         .reduce((accumulator, key) => ({...accumulator, [key]: state.pokedex[key]}), {})
     })
   }

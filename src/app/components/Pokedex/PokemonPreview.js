@@ -5,7 +5,7 @@ import { colors } from '../../../../assets/types'
 
 export default ({data, setTeamOverlay}) => {
   if (data) {
-    const color = (data.types && data.types.length > 0 && colors[data.types[0].type.name])
+    const color = (data.types && data.types.length > 0 && colors[data.types[0]])
     return (
       <pokemonpreview class='pokemon-preview' style={ 'background-color:' + (color && color.light)}>
         <Link class='preview-link' to={'/pokemon/' + data.id}>

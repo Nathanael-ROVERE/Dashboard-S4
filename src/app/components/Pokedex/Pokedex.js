@@ -6,32 +6,30 @@ import { types } from '../../../../assets/types'
 export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPokedex}) =>
 
   <pokedex id='pokedex' oncreate={() => getPokedex()}>
-    <form id='pokemon-filter' onsubmit={(event) => {
-      event.preventDefault()
-      const name = event.target.elements[0].value
-      const types = [...event.target.elements].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
-      search({name: name, types: types})
-      filterPokedex()
-    }}>
+    <form id='pokemon-filter'>
+
       <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name or id' oninput={event => {
-        event.preventDefault()
         const name = event.target.value
         const types = [...event.target.form].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
-        search({name: name, types: types})
-        filterPokedex()
-      }}></input>
+        search({name: name, types: types}) && filterPokedex()
+      }}>
+      </input>
+
       <div id='pokemon-filter-types'>
         <button id='pokemon-filter-types-dropdown-button' onclick={() => document.getElementById('pokemon-filter-types-list').classList.toggle('show')}>Types</button>
         <div id='pokemon-filter-types-list'>
           {types && types.map(type =>
             <div class='pokemon-filter-type'>
-              <input id='checkbox-type' type='checkbox' value={type}></input>
+              <input id='checkbox-type' type='checkbox' value={type} onchange={event => {
+                const name = [...event.target.form][0].value
+                const types = [...event.target.form].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
+                search({name: name, types: types}) && filterPokedex()
+              }}></input>
               <label>{type}</label>
             </div>
           )}
         </div>
       </div>
-      <input type='submit' value='Search'></input>
     </form>
 
     <div id='pokedex-content'>

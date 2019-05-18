@@ -3,7 +3,7 @@ import { utils } from '../actions/utils'
 import { strengths, weaknesses, colors } from '../../../assets/types'
 import { Link } from '@hyperapp/router'
 
-const getPokemonMainColor = (pokemon) => pokemon && pokemon.types && pokemon.types.length > 0 && colors[pokemon.types[0].type.name].light
+const getPokemonMainColor = (pokemon) => pokemon && pokemon.types && pokemon.types.length > 0 && colors[pokemon.types[0]].light
 
 export default({data, setTeamOverlay, statsChart, shiny}) =>
 
@@ -19,7 +19,7 @@ export default({data, setTeamOverlay, statsChart, shiny}) =>
         <h2>
           Strengths
         </h2>
-        {data && data.types && strengths(data.types.map(entry => entry.type.name)).map(strength =>
+        {data && data.types && strengths(data.types).map(strength =>
           <type style={'background-color:' + colors[strength].dark}>
             <h3>
               {strength.toUpperCase()}
@@ -52,9 +52,9 @@ export default({data, setTeamOverlay, statsChart, shiny}) =>
             Types
           </h3>
           <div id="typeList">
-            {data && data.types && data.types.map((entry) =>
-              <type style={'background-color:' + colors[entry.type.name].dark}>
-                {entry.type.name.toUpperCase()}
+            {data && data.types && data.types.map((type) =>
+              <type style={'background-color:' + colors[type].dark}>
+                {type.toUpperCase()}
               </type>
             )}
           </div>
@@ -67,7 +67,7 @@ export default({data, setTeamOverlay, statsChart, shiny}) =>
         <h2>
           Weaknesses
         </h2>
-        {data && data.types && weaknesses(data.types.map(entry => entry.type.name)).map(weakness =>
+        {data && data.types && weaknesses(data.types).map(weakness =>
           <type style={'background-color:' + colors[weakness].dark}>
             <h3>
               {weakness.toUpperCase()}
