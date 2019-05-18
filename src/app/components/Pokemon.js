@@ -98,7 +98,7 @@ export default({data, setTeamOverlay, statsChart, shiny}) =>
 
       <div class='chart-container data-box' style={'position: relative; width:50vw;'}>
         <h2>
-          Statistics for {utils.titleCase(data.name)}
+          Statistics for {data && data.name && utils.titleCase(data.name)}
         </h2>
         {() => data.stats && <canvas
           style='background-color: transparent'
