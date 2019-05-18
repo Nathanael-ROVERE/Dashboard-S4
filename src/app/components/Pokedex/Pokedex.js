@@ -6,21 +6,30 @@ import { types } from '../../../../assets/types'
 export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPokedex}) =>
 
   <pokedex id='pokedex' oncreate={() => getPokedex()}>
-    <form id='pokemon-filter' onsubmit={(e) => {
-      e.preventDefault()
-      const name = e.target.elements[0].value
-      const types = [...e.target.elements].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
+    <form id='pokemon-filter' onsubmit={(event) => {
+      event.preventDefault()
+      const name = event.target.elements[0].value
+      const types = [...event.target.elements].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
       search({name: name, types: types})
       filterPokedex()
     }}>
-      <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name or id'></input>
+      <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name or id' oninput={event => {
+        event.preventDefault()
+        const name = event.target.value
+        const types = [...event.target.form].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
+        search({name: name, types: types})
+        filterPokedex()
+      }}></input>
       <div id='pokemon-filter-types'>
-        {types && types.map(type =>
-          <div class='pokemon-filter-type'>
-            <input id='checkbox-type' type='checkbox' value={type}></input>
-            <label>{type}</label>
-          </div>
-        )}
+        <button id='pokemon-filter-types-dropdown-button' onclick={() => document.getElementById('pokemon-filter-types-list').classList.toggle('show')}>Types</button>
+        <div id='pokemon-filter-types-list'>
+          {types && types.map(type =>
+            <div class='pokemon-filter-type'>
+              <input id='checkbox-type' type='checkbox' value={type}></input>
+              <label>{type}</label>
+            </div>
+          )}
+        </div>
       </div>
       <input type='submit' value='Search'></input>
     </form>

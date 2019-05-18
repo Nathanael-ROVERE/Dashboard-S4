@@ -11,19 +11,57 @@ pokemons {
     margin:auto;
 }
 
+#pokemon-filter {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+}
+
+#pokemon-filter-types {
+  position: relative;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#pokemon-filter-types-list {
+  position: absolute;
+  top: 50%;
+  background-color: #ffffff;
+  margin-top: 10px;
+  z-index: 50;
+  transition: ease-in-out 0.3s;
+  transform-origin: top center;
+  transform: scaleY(0);
+}
+
+#pokemon-filter-types-list.show {
+  display: flex;
+  flex-direction: column;
+  transform: scaleY(1);
+}
+
+#pokemon-filter-name::placeholder {
+  color: #FF6666;
+  width: auto;
+}
+
 #pokemon-filter-name {
   background-color: #FBF6D0;
   color: #FF6666;
   font-family: 'Quicksand', sans-serif;
   font-size: 1em;
-  width: 200px;
+  min-width: 215px;
   border-color: #FF6666;
   border: 3px;
   cursor: text;
   position: center;
 }
 
-input {
+input, #pokemon-filter-types-dropdown-button {
   font-family: 'Quicksand', sans-serif;
   font-size: 1em;
   border: none;
@@ -37,14 +75,6 @@ input {
 label {
   font-family: 'Quicksand', sans-serif;
   font-size: 0.8em;
-}
-
-#pokemon-filter-name::placeholder {
-    color: #FF6666;
-}
-
-#pokemon-filter {
-  
 }
 
 #line1, #line2 {
