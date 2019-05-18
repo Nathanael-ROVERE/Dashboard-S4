@@ -26,6 +26,10 @@ pokemon {
   max-width: 50vw;
 }
 
+#shiny-selector {
+    color: grey;
+}
+
 pokemon .add-image{
   position: absolute;
   top: 15px;
