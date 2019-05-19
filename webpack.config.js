@@ -28,7 +28,8 @@ const config = {
     filename: 'bundle.js',
     library: libraryName,
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+	publicPath: 'http://pokedash.ozidrice.com:8001'
   },
   module: {
     rules: [
