@@ -10,7 +10,10 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
 
     <select oninput={(event) => version.set(event.target.value)}>
       {
-        Object.entries(pokedexes).map(pokedex => <option value={pokedex[0]} selected={version.value === pokedex[0]}>{pokedex[1].name}</option>)
+        Object.entries(pokedexes).map(pokedex =>
+          <option value={pokedex[0]} selected={version.value === pokedex[0]}>
+            {pokedex[1].name}
+          </option>)
       }
     </select>
     <form id='pokemon-filter'>
@@ -18,7 +21,8 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
       <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name or id' oninput={event => {
         const name = event.target.value
         const types = [...event.target.form].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
-        search({name: name, types: types}) && filterPokedex()
+        search({name: name, types: types})
+        filterPokedex()
       }}>
       </input>
 

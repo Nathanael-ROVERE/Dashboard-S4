@@ -17,7 +17,7 @@ export const actions = {
 
   getPokedex: () => (state, actions) => {
     actions.set({entry: 'pokedex', data: {}})
-    get(POKEMON_PATH + '?limit=' + pokedexes[state.version].to + '&offset=' + (pokedexes[state.version].from - 1)).then(response =>
+    get(POKEMON_PATH + '?limit=' + (pokedexes[state.version].to - pokedexes[state.version].from + 1) + '&offset=' + (pokedexes[state.version].from - 1)).then(response =>
       response.results.map((result) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
           Promise.all(pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))).then(moves => {
@@ -131,7 +131,6 @@ export const actions = {
   shiny: (value) => (state, actions) => (value !== undefined && value !== null) && actions.set({entry: 'shiny', data: value}),
 
   setPokedexVersion: (name) => (state, actions) => {
-    actions.set({entry: 'page', data: {...state.page, value: 1}})
     name && actions.set({entry: 'version', data: name})
     actions.getPokedex()
   },
