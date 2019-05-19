@@ -33,6 +33,10 @@ export default (state, actions) =>
             previous: actions.previousPage,
             max: state.page.max
           },
+          version: {
+            value: state.version,
+            set: actions.setPokedexVersion
+          },
           addToTeam: actions.addToTeam,
           teamOverlay: state.teamOverlay,
           setTeamOverlay: actions.setTeamOverlay,

@@ -6,6 +6,7 @@ export default {
     display: false,
     toAdd: {}
   },
+  version: 'g1',
   pokedex: {},
   pokemon: {
   },

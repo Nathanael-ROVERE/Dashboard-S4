@@ -2,6 +2,7 @@ import { location } from '@hyperapp/router'
 import { charts } from './charts'
 import { utils } from './utils'
 import { types as typesNames } from '../../../assets/types'
+import { pokedexes } from '../../../assets/pokedexes'
 
 const API_URL = 'https://pokeapi.co/api/v2/'
 
@@ -15,7 +16,8 @@ export const actions = {
   getState: () => (state) => state,
 
   getPokedex: () => (state, actions) => {
-    get(POKEMON_PATH + '?limit=200').then(response =>
+    actions.set({entry: 'pokedex', data: {}})
+    get(POKEMON_PATH + '?limit=' + pokedexes[state.version].to + '&offset=' + (pokedexes[state.version].from - 1)).then(response =>
       response.results.map((result) =>
         get(POKEMON_PATH + result.name).then(pokemon =>
           Promise.all(pokemon.moves.slice(0, 4).map(entry => getURL(entry.move.url))).then(moves => {
@@ -126,6 +128,8 @@ export const actions = {
 
   shiny: (value) => (state, actions) => (value !== undefined && value !== null) && actions.set({entry: 'shiny', data: value}),
 
+  setPokedexVersion: (name) => (state, actions) => name && actions.set({entry: 'version', data: name}),
+
   /**
    * ***********************************************************************************
    * Team handlers
@@ -188,7 +192,7 @@ export const actions = {
       }
     })
     console.log(name, types)
-    actions.getPokedex()
+    actions.getPokedex(state.version)
   },
 
   nextPage: () => (state, actions) => {

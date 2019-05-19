@@ -19,22 +19,26 @@ export default ({data, removeFromTeam, statsChart, typesChart}) =>
         )
       }
     </pokemons>
-    <div class='chart-container' style="position: relative; width:50vw">
-      {() => data && (
-        <canvas
-          class='data-box'
-          id='team-stats'
-          oncreate={() => statsChart({onCreate: true})}>
-        </canvas>
-      )}
-    </div>
-    <div class='chart-container' style="position: relative; width:50vw">
-      {() => data && (
-        <canvas
-          class='data-box'
-          id='team-types'
-          oncreate={() => typesChart({onCreate: true})}>
-        </canvas>
-      )}
-    </div>
+    { Object.entries(data).reduce((accumulator, current) => accumulator || Object.keys(current[1]).length !== 0, false) &&
+      <div id='team-charts'>
+        <div class='chart-container' style="position: relative; width:50vw">
+          {() => data && (
+            <canvas
+              class='data-box'
+              id='team-stats'
+              oncreate={() => statsChart({onCreate: true})}>
+            </canvas>
+          )}
+        </div>
+        <div class='chart-container' style="position: relative; width:50vw">
+          {() => data && (
+            <canvas
+              class='data-box'
+              id='team-types'
+              oncreate={() => typesChart({onCreate: true})}>
+            </canvas>
+          )}
+        </div>
+      </div>
+    }
   </team>

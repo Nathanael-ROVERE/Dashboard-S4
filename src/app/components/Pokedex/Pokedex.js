@@ -2,10 +2,18 @@ import { h } from 'hyperapp'
 import PokemonPreview from './PokemonPreview'
 import { Link } from '@hyperapp/router'
 import { types } from '../../../../assets/types'
+import { pokedexes } from '../../../../assets/pokedexes'
 
-export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPokedex}) =>
+export default ({match, getPokedex, data, version, page, setTeamOverlay, search, filterPokedex}) =>
 
   <pokedex id='pokedex' oncreate={() => getPokedex()}>
+    {console.log(version.value)}
+
+    <select oninput={(event) => version.set(event.target.value) && getPokedex()}>
+      {
+        Object.entries(pokedexes).map(pokedex => <option value={pokedex[0]} selected={version.value === pokedex[0]}>{pokedex[1].name}</option>)
+      }
+    </select>
     <form id='pokemon-filter'>
 
       <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name or id' oninput={event => {
@@ -62,7 +70,6 @@ export default ({match, getPokedex, data, page, setTeamOverlay, search, filterPo
           </Link>
       }
 
-      {console.log(Math.round(data.length / 20))}
       {
         () => (page.value < page.max) &&
           <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)}>
