@@ -1,0 +1,75 @@
+/*FONTS*/
+@font-face {
+  font-family: "Futura-Black";
+  src: url("/fonts/unicode.futurabb.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Futura-Lt-BT";
+  src: url("/fonts/FutuLt.ttf") format("ttf");
+}
+
+/*COLORS*/
+:root {
+  --title-background-color: #FF6666;
+  --menu-background-color: #FBF6D0;
+}
+
+#consolelog{
+  position: fixed;
+  bottom:0;
+  left:0;
+  right: 0;
+  height: 100px;
+  background-color: #eee;
+  margin: 0
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin:0;
+  padding: 0;
+}
+
+
+header #title img{
+  height: 50px;
+}
+
+
+header #title{
+  background-color: var(--title-background-color);
+  text-align: center;
+  padding: 50px 0;
+  margin: 0;
+  width: 100%;
+}
+
+header #menu{
+  font-family: "Futura-Lt-BT";
+  display: flex;
+  font-size: 18px;
+  text-align: center;
+  align-items: flex-start;
+}
+
+header #menu > *{
+  width: 100%;
+  margin: 0;
+  padding: 15px 0;
+  transition: 0.25s; -webkit-transition: 0.25s;
+  background-color: var(--menu-background-color);
+  color:#C23D02;
+}
+
+header #menu > .selected, header #menu > *:hover {
+  padding: 20px 0;
+  font-size: 110%;
+  color: #753519;
+}
+
+header #menuSizeKeeper{ /*Used to keed height during menu element animation*/
+  height: 50px
+}
