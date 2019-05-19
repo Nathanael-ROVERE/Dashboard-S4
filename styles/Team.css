@@ -10,6 +10,8 @@ team{
 pokemons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
 }
 
 pokemons button {
@@ -20,7 +22,6 @@ pokemons button {
 pokemonpreview {
   position: relative;
   padding: 0!important;
-  max-width: 300px;
 }
 
 pokemonpreview.data-box {
@@ -62,13 +63,13 @@ pokemonpreview button {
 }
 
 @media only screen and (max-width: 768px) {
+
   pokemons {
     grid-template-columns: repeat(2, 1fr);
   }
 
   pokemonpreview.data-box{
     min-height: 0;
-    height: 150px;
     max-height: 20vh;
     padding: 0;
   }

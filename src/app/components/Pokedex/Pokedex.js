@@ -18,7 +18,7 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
         }
       </select>
 
-      <input id='pokemon-filter-name' type='search' placeholder='Enter Pokemon name :' oninput={event => {
+      <input id='pokemon-filter-name' type='search' placeholder='Enter pokemon name...' oninput={event => {
         const name = event.target.value
         const types = [...event.target.form].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
         search({name: name, types: types})
@@ -37,9 +37,11 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
           {types && types.map(type =>
             <div class='pokemon-filter-type'>
               <input id='checkbox-type' type='checkbox' value={type} onchange={event => {
-                const name = [...event.target.form][0].value
+                const name = [...event.target.form][1].value
+                console.log(name)
                 const types = [...event.target.form].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
-                search({name: name, types: types}) && filterPokedex()
+                search({name: name, types: types})
+                filterPokedex()
               }}></input>
               <label>{type}</label>
             </div>
@@ -59,7 +61,16 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
         )
       }
     </div>
+    <select id='items-per-page' oninput={(event) => page.setItems(event.target.value)}>
+      {
+        (new Array(10)).fill(null).map((element, index) => {
+          const number = 10 * (index + 1)
+          return (<option value={number} selected={page.items === number}>{number}</option>)
+        })
+      }
+    </select>
     <div class="buttons">
+
       {
         () => (page.value > 1) &&
           <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)}>

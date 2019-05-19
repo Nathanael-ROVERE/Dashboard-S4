@@ -51,7 +51,6 @@
 
 #pokemon-filter-name::placeholder {
   color: #FF6666;
-  width: auto;
 }
 
 #pokemon-filter-name {
@@ -59,10 +58,10 @@
   color: #FF6666;
   font-family: 'Quicksand', sans-serif;
   font-size: 1em;
-  min-width: 215px;
   border-color: #FF6666;
   border: 3px;
   cursor: text;
+  max-width: 200px;
 }
 
 input, #pokemon-filter-types-dropdown-button {

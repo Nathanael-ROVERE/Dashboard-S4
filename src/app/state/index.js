@@ -24,6 +24,7 @@ export default {
   },
   shiny: false,
   page: {
+    items: 60,
     value: 1
   },
   'first-pokemon-stats-chart-created': false,

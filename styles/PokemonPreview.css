@@ -1,5 +1,6 @@
 .pokemon-preview {
-  max-width: 300px;
+  width: 100%;
+  margin: auto;
   display: flex;
   justify-content: flex-end ;
   align-items: stretch;
@@ -70,7 +71,7 @@ div .img{
   }
 
   .del-image{
-    top:initial;
+    top: 10px;
     bottom: 10px;
     width: 10px;
     height: 10px;

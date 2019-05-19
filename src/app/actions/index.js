@@ -40,7 +40,7 @@ export const actions = {
               entry: 'page',
               data: {
                 ...actions.getState().page,
-                max: Object.entries(actions.getState().pokedex).length / 20
+                max: Math.round(Object.keys(actions.getState().pokedex).length / state.page.items)
               }
             })
           })
@@ -135,6 +135,11 @@ export const actions = {
     actions.getPokedex()
   },
 
+  setItemsPerPage: (number) => (state, actions) => {
+    (number !== undefined && number !== null) && actions.set({entry: 'page', data: {...state.page, items: number}})
+    actions.set({entry: 'page', data: {...actions.getState().page, max: Math.round(Object.keys(actions.getState().pokedex).length / number)}})
+  },
+
   /**
    * ***********************************************************************************
    * Team handlers
@@ -144,7 +149,7 @@ export const actions = {
   addToTeam: ({data, slot}) => (state, actions) => {
     if (data && !data.stats) {
       console.log(data)
-      actions.getPokemon({id: data.name}).then(response => console.log('response', response) && actions.set({
+      actions.getPokemon({id: data.name}).then(response => actions.set({
         entry: 'team',
         data: {
           ...state.team,
@@ -205,10 +210,9 @@ export const actions = {
       entry: 'page',
       data: {
         ...state.page,
-        value: Math.min(state.page.value + 1, Math.round(Object.entries(state.pokedex).length / 20))
+        value: Math.min(state.page.value + 1, Math.round(Object.entries(state.pokedex).length / state.page.items))
       }
     })
-    console.log(actions.getState().page)
   },
 
   previousPage: () => (state, actions) => {
@@ -219,10 +223,10 @@ export const actions = {
         value: Math.max(state.page.value - 1, 0)
       }
     })
-    console.log(actions.getState().page)
   },
 
   filterPokedex: () => (state, actions) => {
+    console.log(state.searched)
     actions.set({
       entry: 'pokedex',
       data: Object.keys(state.pokedex)
