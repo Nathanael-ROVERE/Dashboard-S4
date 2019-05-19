@@ -8,7 +8,7 @@ import Pokedex from '../Pokedex/Pokedex'
 import Team from '../Team/Team'
 
 export default (state, actions) =>
-  <app>
+  <app oncreate={() => actions.getPokedex()}>
     <Header></Header>
     {
       () => state.teamOverlay.display &&
@@ -25,7 +25,6 @@ export default (state, actions) =>
       <Route parent path='/pokedex/:page' render={({match}) => Pokedex(
         {
           match: match,
-          getPokedex: actions.getPokedex,
           data: Object.entries(state.pokedex).slice(20 * (state.page.value - 1), 20 * state.page.value),
           page: {
             value: state.page.value,
@@ -59,8 +58,11 @@ export default (state, actions) =>
         {
           data: state.team,
           removeFromTeam: actions.removeFromTeam,
-          statsChart: actions.teamStatsChart,
-          typesChart: actions.teamTypesChart
+          charts: {
+            statsChart: actions.teamStatsChart,
+            typesChart: actions.teamTypesChart,
+            regionsChart: actions.teamRegionsChart
+          }
         }
       )}>
       </Route>

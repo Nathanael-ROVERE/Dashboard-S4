@@ -1,4 +1,5 @@
 .pokemon-preview {
+  max-width: 300px;
   display: flex;
   justify-content: flex-end ;
   align-items: stretch;

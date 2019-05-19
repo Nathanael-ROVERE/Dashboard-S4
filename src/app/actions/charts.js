@@ -4,7 +4,7 @@ import { utils } from './utils'
 import { colors } from '../../../assets/types'
 
 export const charts = {
-  'horizontal-bar-stats-chart': ({id, labels, data}) => {
+  'horizontal-bar-chart': ({id, labels, data}) => {
     const ctx = document.getElementById(id)
     const chart = new Chart(ctx, {
       type: 'horizontalBar',
@@ -22,12 +22,11 @@ export const charts = {
         }]
       },
       options: {
-        events: true,
         responsive: true,
         legend: {
-          position: 'bottom'
+          display: false
         },
-        hover: {
+        tooltips: {
           mode: 'label'
         },
         scales: {
@@ -57,57 +56,55 @@ export const charts = {
       }
     })
   },
-  'radar-stats-chart': ({id, labels, data}) => {
+  'radar-chart': ({id, labels, data}) => {
     const ctx = document.getElementById(id)
     const chart = new Chart(ctx, {
       type: 'radar',
       data: {
         labels: utils.flip(labels),
         datasets: [{
-          label: 'Stats',
+          label: 'Value',
           data: utils.flip(data),
           backgroundColor: utils.flip(data).map(value => utils.color(value)),
           borderWidth: 1,
           datalabels: {
             anchor: 'end',
-            align: 'end',
-            display: function (context) {
-              return context.dataIndex % 2 // display labels with an odd index
-            }
+            align: 'end'
           }
         }]
       },
       options: {
-        events: true,
         responsive: true,
+        events: true,
         legend: {
-          position: 'bottom'
+          display: false
         },
-        hover: {
-          mode: 'label'
+        tooltips: {
+          mode: 'point'
         },
         scales: {
           display: false
         },
         scale: {
           ticks: {
+            display: false,
             beginAtZero: true,
             max: 200,
             min: 0,
-            stepSize: 40
+            stepSize: 200
           }
-        },
-        plugins: {
-          datalabels: {
-          }
+        }
+      },
+      plugins: {
+        datalabels: {
         }
       }
     })
   },
-  'pie-types-chart': ({id, labels, data}) => {
+  'polar-chart': ({id, labels, data}) => {
     const ctx = document.getElementById(id)
     const chart = new Chart(ctx, {
-      type: 'pie',
+      type: 'polarArea',
       data: {
         labels: labels,
         datasets: [{
@@ -117,25 +114,36 @@ export const charts = {
           borderWidth: 1,
           datalabels: {
             anchor: 'end',
-            align: 'end'
+            align: 'end',
+            formatter: (value, context) => (value > 0) ? context.chart.data.labels[context.dataIndex] : ''
           }
         }]
       },
       options: {
-        events: true,
         responsive: true,
         legend: {
-          position: 'right'
+          display: false
         },
-        hover: {
+        tooltips: {
           mode: 'label'
         },
         scales: {
           display: false
         },
+        scale: {
+          ticks: {
+            display: false,
+            beginAtZero: true,
+            max: 5,
+            min: -5,
+            stepSize: 2
+          },
+          gridLines: {
+            display: false
+          }
+        },
         plugins: {
           datalabels: {
-            display: context => context.dataset.data[context.dataIndex] > 0
           }
         }
       }

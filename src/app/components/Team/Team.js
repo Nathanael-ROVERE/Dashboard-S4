@@ -1,7 +1,7 @@
 import { h } from 'hyperapp'
 import TeamPokemonPreview from './TeamPokemonPreview'
 
-export default ({data, removeFromTeam, statsChart, typesChart}) =>
+export default ({data, removeFromTeam, charts}) =>
   <team>
     <pokemons>
       {
@@ -11,31 +11,47 @@ export default ({data, removeFromTeam, statsChart, typesChart}) =>
             slot={index + 1}
             removeFromTeam={removeFromTeam}
             updateCharts={() => {
-              statsChart({onCreate: false})
-              typesChart({onCreate: false})
+              charts.statsChart()
+              charts.typesChart()
+              charts.regionsChart()
             }}
           >
           </TeamPokemonPreview>
         )
       }
     </pokemons>
-    { Object.entries(data).reduce((accumulator, current) => accumulator || Object.keys(current[1]).length !== 0, false) &&
+    { data && Object.entries(data).reduce((accumulator, current) => accumulator || Object.keys(current[1]).length !== 0, false) &&
       <div id='team-charts'>
-        <div class='chart-container' style="position: relative; width:50vw">
+        <div class='chart-container data-box' style="position: relative;">
+          <h2>
+            Team average statistics
+          </h2>
           {() => data && (
             <canvas
-              class='data-box'
               id='team-stats'
-              oncreate={() => statsChart({onCreate: true})}>
+              oncreate={() => charts.statsChart()}>
             </canvas>
           )}
         </div>
-        <div class='chart-container' style="position: relative; width:50vw">
+        <div class='chart-container data-box' style="position: relative;">
+          <h2>
+            Team types
+          </h2>
           {() => data && (
             <canvas
-              class='data-box'
               id='team-types'
-              oncreate={() => typesChart({onCreate: true})}>
+              oncreate={() => charts.typesChart()}>
+            </canvas>
+          )}
+        </div>
+        <div class='chart-container data-box' style="position: relative;">
+          <h2>
+            Team regions
+          </h2>
+          {() => data && (
+            <canvas
+              id='team-regions'
+              oncreate={() => charts.regionsChart()}>
             </canvas>
           )}
         </div>

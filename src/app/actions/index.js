@@ -57,7 +57,7 @@ export const actions = {
 
   pokemonStatsChart: ({data, id, onCreate}) => (state, actions) => {
     if (onCreate === false || onCreate === !state['first-pokemon-stats-chart-created'] === true) {
-      charts['horizontal-bar-stats-chart']({
+      charts['horizontal-bar-chart']({
         id: 'stats' + id,
         labels: data.map(stats => stats.stat.name),
         data: data.map(stats => stats.base_stat)
@@ -76,19 +76,12 @@ export const actions = {
     return average
   },
 
-  teamStatsChart: ({onCreate}) => (state, actions) => {
-    if (onCreate === false || onCreate === !state['first-team-stats-chart-created'] === true) {
-      charts['radar-stats-chart']({
-        id: 'team-stats',
-        labels: ['speed', 'sepcial-defense', 'special-attack', 'defense', 'attack', 'hp'],
-        data: actions.teamAverageStats()
-      })
-    } else if (onCreate === !state['first-team-stats-chart-created'] === true) {
-      actions.set({
-        entry: 'first-team-stats-chart-created',
-        data: true
-      })
-    }
+  teamStatsChart: () => (state, actions) => {
+    charts['radar-chart']({
+      id: 'team-stats',
+      labels: ['Speed', 'Special-defense', 'Special-attack', 'Defense', 'Attack', 'Hp'],
+      data: actions.teamAverageStats()
+    })
   },
 
   teamTypesCount: () => (state) => {
@@ -100,19 +93,28 @@ export const actions = {
     return count
   },
 
-  teamTypesChart: ({onCreate}) => (state, actions) => {
-    if (onCreate === false || onCreate === !state['first-team-stats-chart-created'] === true) {
-      charts['pie-types-chart']({
-        id: 'team-types',
-        labels: typesNames,
-        data: actions.teamTypesCount()
-      })
-    } else if (onCreate === !state['first-team-stats-chart-created'] === true) {
-      actions.set({
-        entry: 'first-team-types-chart-created',
-        data: true
-      })
-    }
+  teamTypesChart: () => (state, actions) => {
+    charts['polar-chart']({
+      id: 'team-types',
+      labels: typesNames.map(type => utils.titleCase(type)),
+      data: actions.teamTypesCount()
+    })
+  },
+
+  teamRegionsCount: () => (state) => {
+    const ids = Object.entries(state.team)
+      .map(entry => entry[1].id)
+      .filter(entry => (entry !== null && entry !== undefined))
+    const count = Object.entries(pokedexes).map(pokedex => ids.filter(id => id >= pokedex[1].from && id <= pokedex[1].to).length)
+    return count
+  },
+
+  teamRegionsChart: () => (state, actions) => {
+    charts['polar-chart']({
+      id: 'team-regions',
+      labels: Object.entries(pokedexes).map(entry => utils.titleCase(entry[1].name)),
+      data: actions.teamRegionsCount()
+    })
   },
 
   /**
@@ -128,7 +130,11 @@ export const actions = {
 
   shiny: (value) => (state, actions) => (value !== undefined && value !== null) && actions.set({entry: 'shiny', data: value}),
 
-  setPokedexVersion: (name) => (state, actions) => name && actions.set({entry: 'version', data: name}),
+  setPokedexVersion: (name) => (state, actions) => {
+    actions.set({entry: 'page', data: {...state.page, value: 1}})
+    name && actions.set({entry: 'version', data: name})
+    actions.getPokedex()
+  },
 
   /**
    * ***********************************************************************************
@@ -191,8 +197,7 @@ export const actions = {
         types: types
       }
     })
-    console.log(name, types)
-    actions.getPokedex(state.version)
+    actions.getPokedex()
   },
 
   nextPage: () => (state, actions) => {

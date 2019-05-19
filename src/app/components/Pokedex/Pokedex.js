@@ -4,12 +4,11 @@ import { Link } from '@hyperapp/router'
 import { types } from '../../../../assets/types'
 import { pokedexes } from '../../../../assets/pokedexes'
 
-export default ({match, getPokedex, data, version, page, setTeamOverlay, search, filterPokedex}) =>
+export default ({match, data, version, page, setTeamOverlay, search, filterPokedex}) =>
 
-  <pokedex id='pokedex' oncreate={() => getPokedex()}>
-    {console.log(version.value)}
+  <pokedex id='pokedex'>
 
-    <select oninput={(event) => version.set(event.target.value) && getPokedex()}>
+    <select oninput={(event) => version.set(event.target.value)}>
       {
         Object.entries(pokedexes).map(pokedex => <option value={pokedex[0]} selected={version.value === pokedex[0]}>{pokedex[1].name}</option>)
       }

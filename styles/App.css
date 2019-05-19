@@ -1,4 +1,5 @@
 /*FONTS*/
+
 @font-face {
   font-family: "Futura-Black";
   src: url("/fonts/unicode.futurabb.ttf") format("ttf");
@@ -7,6 +8,8 @@
   font-family: "Futura-Lt-BT";
   src: url("/fonts/FutuLt.ttf") format("ttf");
 }
+
+/* //////////////////////////////////////////////////////// */
 
 a, a:hover, a:active, a:visited{
   text-decoration: none;

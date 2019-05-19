@@ -1,13 +1,8 @@
-pokemons {
-  display: grid;
-  grid-template-columns: 33.333% 33.333% 33.333%;
-}
-
 #pokedex-content {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 30px;
-    max-width: 1200px;
+    max-width: 90vw;
     margin:auto;
 }
 
@@ -82,11 +77,9 @@ label {
   width: 100%;
 }
 
-
 .chart-container canvas {
   margin:0;
 }
-
 
 .change-page {
   font-family: 'Quicksand', sans-serif;
@@ -119,7 +112,7 @@ label {
   text-align: center;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 950px) {
   /* For mobile phones: */
   #pokedex-content {
     grid-template-columns: repeat(2, 1fr);
@@ -133,6 +126,10 @@ label {
     display: block;
     width: 100%;
   }
+}
 
-
+@media only screen and (max-width: 400px) {
+  #pokedex-content {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

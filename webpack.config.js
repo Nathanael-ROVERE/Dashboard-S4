@@ -20,6 +20,7 @@ const config = {
     path.resolve(__dirname, './styles/Pokedex.css'),
     path.resolve(__dirname, './styles/TeamSelect.css'),
     path.resolve(__dirname, './styles/PokemonPreview.css'),
+    path.resolve(__dirname, './styles/Team.css')
   ],
   devtool: 'source-map',
   output: {
