@@ -177,6 +177,8 @@ label {
   }
 
   .change-page{
+    display: block;
+    width: 100%;
     font-size: 16px;
     margin: 5px;
   }
