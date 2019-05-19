@@ -13,6 +13,16 @@
   margin: 10px;
 }
 
+#pokemon-select-region {
+  background-color: #FBF6D0;
+  color: #FF6666;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+  min-width: 215px;
+  border-color: #FF6666;
+  border: 3px;
+}
+
 #pokemon-filter-types {
   position: relative;
   min-width: 100px;
@@ -53,7 +63,6 @@
   border-color: #FF6666;
   border: 3px;
   cursor: text;
-  position: center;
 }
 
 input, #pokemon-filter-types-dropdown-button {
