@@ -9,7 +9,6 @@ import Team from '../Team/Team'
 
 export default (state, actions) =>
   <app oncreate={() => actions.getPokedex()}>
-    {console.log(state.pokedex)}
     <Header></Header>
     {
       () => state.teamOverlay.display &&
