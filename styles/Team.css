@@ -1,0 +1,95 @@
+team{
+  height: 70vh;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  margin: auto;
+}
+
+pokemons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+pokemons button {
+  background: none;
+  border: none;
+}
+
+pokemonpreview {
+  position: relative;
+  padding: 0!important;
+}
+
+pokemonpreview.data-box {
+  width: 100%;
+  margin: 10px auto;
+}
+
+pokemonpreview.empty a{
+  width: 100%;
+  height: -webkit-fill-available;
+  display: flex;
+}
+
+pokemonpreview.empty {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-size: 32px;
+  min-height: 150px;
+}
+
+h2 {
+  width: 100%;
+  font-family: 'Handlee', cursive;
+  margin:0;
+  padding: 10px 0;
+  text-align: center;
+}
+
+pokemonpreview button {
+  position: absolute;
+  top:5px;
+  right: 5px;
+}
+
+#team-charts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media only screen and (max-width: 768px) {
+
+  pokemons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #team-charts{
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  pokemonpreview.data-box{
+    max-height: 20vh;
+    padding: 0;
+    min-height: 120px;
+  }
+
+  pokemonpreview img{
+    max-height: 70%;
+  }
+
+  h2{
+    font-size: 16px;
+    padding: 3px 0;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  pokemons, #team-charts {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

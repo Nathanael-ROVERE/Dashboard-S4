@@ -1,0 +1,74 @@
+.fixedbackground{
+  z-index: 998;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: #000000aa;
+}
+
+.overlay {
+  display: flex;
+  z-index: 999;
+  margin: auto;
+  flex-direction: column;
+  max-width: 1200px;
+}
+
+h1{
+  text-align: center;
+  color: white;
+  font-family: 'Futura-Black';
+  font-size: 42px;
+  font-weight: bold;
+}
+
+button.cancel{
+  margin: auto;
+  width: 30%;
+}
+
+.votre_equipe {
+    background-color: #FBF6D0;
+    border-radius: 30px;
+    color: #FF6666;
+    font-size: 2.5em;
+    padding: 10px 0;
+    width: 50%;
+    margin-left: 25%;
+}
+
+/*cancel button*/
+.cancel {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #FBF6D0;
+  color: #FF6666;
+  font-size: 1em;
+  border-radius: 5px;
+  border: none;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+.cancel:hover {
+  background-color: #FF6666;
+  color: #FBF6D0;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .overlay pokemons{
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .votre_equipe{
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .overlay pokemons {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

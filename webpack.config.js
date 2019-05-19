@@ -15,7 +15,12 @@ const plugins = [
 const config = {
   entry: [
     path.resolve(__dirname, './src/index.js'),
-    path.resolve(__dirname, './styles/app.css')
+    path.resolve(__dirname, './styles/App.css'),
+    path.resolve(__dirname, './styles/Pokemon.css'),
+    path.resolve(__dirname, './styles/Pokedex.css'),
+    path.resolve(__dirname, './styles/TeamSelect.css'),
+    path.resolve(__dirname, './styles/PokemonPreview.css'),
+    path.resolve(__dirname, './styles/Team.css')
   ],
   devtool: 'source-map',
   output: {
@@ -23,7 +28,8 @@ const config = {
     filename: 'bundle.js',
     library: libraryName,
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+	publicPath: 'http://pokedash.ozidrice.com:8001'
   },
   module: {
     rules: [

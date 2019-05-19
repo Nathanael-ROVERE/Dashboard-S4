@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Pokemon companion dashboard",
   "scripts": {
-    "start": "webpack-dev-server --port 4200"
+    "start": "webpack-dev-server --port 8001"
   },
   "devserver": "live-server --browser=Chrome",
   "repository": {
@@ -39,7 +39,7 @@
     "eslint-config-standard": "^11.0.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-fp": "^2.3.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-import": "^2.17.1",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-react": "^7.5.1",
@@ -55,7 +55,11 @@
   },
   "dependencies": {
     "@hyperapp/logger": "^0.4.1",
+    "@hyperapp/router": "^0.7.1",
+    "chart.js": "^2.8.0",
+    "chartjs-plugin-datalabels": "^0.6.0",
     "hyperapp": "^1.1.2",
+    "jquery": "^3.4.0",
     "ramda": "^0.25.0"
   }
 }
