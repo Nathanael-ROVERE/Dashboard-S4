@@ -14,13 +14,13 @@
 }
 
 #pokemon-select-region {
-  background-color: #FBF6D0;
-  color: #FF6666;
+  background-color: #FF6666;
+  color: #FBF6D0;
   font-family: 'Quicksand', sans-serif;
   font-size: 1em;
-  min-width: 215px;
   border-color: #FF6666;
   border: 3px;
+  border-radius: 5px;
 }
 
 #pokemon-filter-types {
