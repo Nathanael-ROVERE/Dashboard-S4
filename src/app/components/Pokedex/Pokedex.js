@@ -77,7 +77,7 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
             document.body.scrollTop = 0 // For Safari
             document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
           }}>
-            Previous page
+            <img class='image' src="/img/back.png"/>
           </button>
         </Link>
 
@@ -87,7 +87,7 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
             document.body.scrollTop = 0 // For Safari
             document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
           }}>
-            Next page
+            <img class='image' src="/img/next.png"/>
           </button>
         </Link>
       </div>
