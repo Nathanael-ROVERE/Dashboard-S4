@@ -71,8 +71,8 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
         }
       </select>
       <div class="buttons">
-        <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)}>
-          <button class={'change-page' + ((page.value > 1) ? '' : ' disabled')} onclick={() => {
+        <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)} class={((page.value > 1) ? '' : ' disabled')}>
+          <button class='change-page' onclick={() => {
             page.previous()
             document.body.scrollTop = 0 // For Safari
             document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
@@ -81,8 +81,8 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
           </button>
         </Link>
 
-        <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)}>
-          <button class={'change-page' + ((page.value < page.max) ? '' : ' disabled')} onclick={() => {
+        <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)} class={((page.value < page.max) ? '' : ' disabled')}>
+          <button class='change-page' onclick={() => {
             page.next()
             document.body.scrollTop = 0 // For Safari
             document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
