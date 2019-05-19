@@ -61,41 +61,35 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
         )
       }
     </div>
-    <select id='items-per-page' oninput={(event) => page.setItems(event.target.value)}>
-      {
-        (new Array(10)).fill(null).map((element, index) => {
-          const number = 10 * (index + 1)
-          return (<option value={number} selected={page.items === number}>{number}</option>)
-        })
-      }
-    </select>
-    <div class="buttons">
+    <div class='navigation'>
+      <select id='items-per-page' oninput={(event) => page.setItems(event.target.value)}>
+        {
+          (new Array(10)).fill(null).map((element, index) => {
+            const number = 10 * (index + 1)
+            return (<option value={number} selected={page.items === number}>{number}</option>)
+          })
+        }
+      </select>
+      <div class="buttons">
+        <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)} class={((page.value > 1) ? '' : ' disabled')}>
+          <button class='change-page' onclick={() => {
+            page.previous()
+            document.body.scrollTop = 0 // For Safari
+            document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+          }}>
+            Previous page
+          </button>
+        </Link>
 
-      {
-        () => (page.value > 1) &&
-          <Link to={'/pokedex/' + Math.max(1, parseInt(match.params.page, 10) - 1)}>
-            <button class='change-page' onclick={() => {
-              page.previous()
-              document.body.scrollTop = 0 // For Safari
-              document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
-            }}>
-              Previous page
-            </button>
-          </Link>
-      }
-
-      {
-        () => (page.value < page.max) &&
-          <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)}>
-            <button class='change-page next' onclick={() => {
-              page.next()
-              document.body.scrollTop = 0 // For Safari
-              document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
-            }}>
-              Next page
-            </button>
-          </Link>
-      }
-
+        <Link to={'/pokedex/' + Math.min(41, parseInt(match.params.page, 10) + 1)} class={((page.value < page.max) ? '' : ' disabled')}>
+          <button class='change-page' onclick={() => {
+            page.next()
+            document.body.scrollTop = 0 // For Safari
+            document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+          }}>
+            Next page
+          </button>
+        </Link>
+      </div>
     </div>
   </pokedex>

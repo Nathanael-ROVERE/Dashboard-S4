@@ -69,7 +69,6 @@ pokemonpreview button {
   }
 
   pokemonpreview.data-box{
-    min-height: 0;
     max-height: 20vh;
     padding: 0;
   }
