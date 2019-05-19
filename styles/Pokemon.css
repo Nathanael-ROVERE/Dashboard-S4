@@ -111,5 +111,7 @@ type h3{
 
   .chart-container{
     width: calc(100% - 50px)!important;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

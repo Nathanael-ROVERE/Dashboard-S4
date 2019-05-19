@@ -166,4 +166,23 @@ label {
   #pokedex-content {
     grid-template-columns: repeat(1, 1fr);
   }
+
+  #pokemon-filter{
+    flex-direction: column;
+  }
+
+  #pokemon-filter > *{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .change-page{
+    font-size: 16px;
+    margin: 5px;
+  }
+
+  .navigation{
+    width: calc(100% - 30px);
+    padding: 0 15px;
+  }
 }
