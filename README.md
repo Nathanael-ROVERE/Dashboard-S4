@@ -13,5 +13,5 @@ API :
 https://pokeapi.co/
 
 Pour lancer le projet :
-npm install
-npm start
+- npm install
+- npm start
