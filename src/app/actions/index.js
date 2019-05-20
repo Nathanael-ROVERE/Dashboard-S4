@@ -226,7 +226,6 @@ export const actions = {
   },
 
   filterPokedex: () => (state, actions) => {
-    console.log(state.searched)
     actions.set({
       entry: 'pokedex',
       data: Object.keys(state.pokedex)
