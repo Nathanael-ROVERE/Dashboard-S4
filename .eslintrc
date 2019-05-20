@@ -47,7 +47,7 @@
     "fp/no-unused-expression": "off",
     "fp/no-mutation": "off",
     "fp/no-nil": "off",
-    "no-unused-vars": [2, { "varsIgnorePattern": "h" }],
+    "no-unused-vars": "off",
     "react/jsx-uses-vars": "warn"
   },
 

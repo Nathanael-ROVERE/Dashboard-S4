@@ -13,4 +13,3 @@ const main = app(
 )
 
 const unsubscribe = location.subscribe(main.location)
-console.log(unsubscribe)

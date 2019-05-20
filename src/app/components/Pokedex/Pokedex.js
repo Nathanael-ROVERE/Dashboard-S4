@@ -19,7 +19,7 @@ export default ({match, data, version, page, setTeamOverlay, search, filterPoked
       </select>
 
       <input id='pokemon-filter-name' type='search' placeholder='Enter pokemon name...' oninput={event => {
-        const name = event.target.value
+        const name = event.target.value.toLowerCase()
         const types = [...event.target.form].filter(element => element.type === 'checkbox').filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
         search({name: name, types: types})
         filterPokedex()
