@@ -11,3 +11,7 @@ https://www.figma.com/file/DAy82yIFakyzLE2hmo07riCC/Pokedash?node-id=0%3A1
 
 API :
 https://pokeapi.co/
+
+Pour lancer le projet :
+npm install
+npm start
